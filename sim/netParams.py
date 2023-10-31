@@ -65,7 +65,7 @@ netParams.correctBorder = {'threshold': [cfg.correctBorderThreshold, cfg.correct
 #------------------------------------------------------------------------------
 ## Load cell rules previously saved using netpyne format
 cellParamLabels = ['IT2_reduced', 'IT4_reduced', 'IT5A_reduced', 'IT5B_reduced', 'PT5B_reduced',
-    'IT6_reduced', 'CT6_reduced', 'PV_simple', 'SOM_simple', 'IT5A_full']# 'VIP_reduced', 'NGF_simple','PT5B_full'] #  # list of cell rules to load from file
+    'IT6_reduced', 'CT6_reduced', 'PV_simple', 'SOM_simple', 'IT5A_full'] # 'PT5B_full', 'NGF_simple', 'VIP_reduced'] # list of cell rules to load from file
 loadCellParams = cellParamLabels
 saveCellParams = False #True
 
@@ -134,33 +134,45 @@ for label, p in reducedCells.items():  # create cell rules that were not loaded
 
 netParams = specs.NetParams()
 
-cellRule = netParams.importCellParams(label = 'PT5B_full',  conds={'cellType': 'PT', 'cellModel': 'HH_full'},
+if 'PT5B_full' not in loadCellParams:
+    cellRule = netParams.importCellParams(label = 'PT5B_full',  conds={'cellType': 'PT', 'cellModel': 'HH_full'},
                                       fileName = 'TTPC_M1_Na_HHTF.py',cellName= 'Na1612Model_TF')
+    nonSpiny = ['apic_0', 'apic_1']
+    netParams.addCellParamsSecList(label='PT5B_full', secListName='perisom',
+                                   somaDist=[0, 50])  # sections within 50 um of soma
+    netParams.addCellParamsSecList(label='PT5B_full', secListName='below_soma',
+                               somaDistY=[-600, 0])  # sections within 0-300 um of soma
+    for sec in nonSpiny: cellRule['secLists']['perisom'].remove(sec)
+    cellRule['secLists']['alldend'] = [sec for sec in cellRule.secs if ('dend' in sec or 'apic' in sec)]  # basal+apical
+    cellRule['secLists']['apicdend'] = [sec for sec in cellRule.secs if ('apic' in sec)]  # apical
+    cellRule['secLists']['spiny'] = [sec for sec in cellRule['secLists']['alldend'] if sec not in nonSpiny]
 
+if saveCellParams: netParams.saveCellParamsRule(label='PT5B_full', fileName='cells/PT5B_full_cellParams.pkl')
+#
 # if 'PT5B_full' not in loadCellParams:
-#     ihMod2str = {'harnett': 1, 'kole': 2, 'migliore': 3}
-#     cellRule = netParams.importCellParams(label='PT5B_full', conds={'cellType': 'PT', 'cellModel': 'HH_full'},
-#       fileName='cells/PTcell.hoc', cellName='PTcell', cellArgs=[ihMod2str[cfg.ihModel], cfg.ihSlope], somaAtOrigin=True)
-#     nonSpiny = ['apic_0', 'apic_1']
+#      ihMod2str = {'harnett': 1, 'kole': 2, 'migliore': 3}
+#      cellRule = netParams.importCellParams(label='PT5B_full', conds={'cellType': 'PT', 'cellModel': 'HH_full'},
+#        fileName='cells/PTcell.hoc', cellName='PTcell', cellArgs=[ihMod2str[cfg.ihModel], cfg.ihSlope], somaAtOrigin=True)
+#      nonSpiny = ['apic_0', 'apic_1']
 #     netParams.addCellParamsSecList(label='PT5B_full', secListName='perisom', somaDist=[0, 50])  # sections within 50 um of soma
-#     netParams.addCellParamsSecList(label='PT5B_full', secListName='below_soma', somaDistY=[-600, 0])  # sections within 0-300 um of soma
-#     for sec in nonSpiny: cellRule['secLists']['perisom'].remove(sec)
-#     cellRule['secLists']['alldend'] = [sec for sec in cellRule.secs if ('dend' in sec or 'apic' in sec)] # basal+apical
-#     cellRule['secLists']['apicdend'] = [sec for sec in cellRule.secs if ('apic' in sec)] # apical
-#     cellRule['secLists']['spiny'] = [sec for sec in cellRule['secLists']['alldend'] if sec not in nonSpiny]
-#     # Adapt ih params based on cfg param
-#     for secName in cellRule['secs']:
-#         for mechName,mech in cellRule['secs'][secName]['mechs'].items():
-#             if mechName in ['ih','h','h15', 'hd']:
-#                 mech['gbar'] = [g*cfg.ihGbar for g in mech['gbar']] if isinstance(mech['gbar'],list) else mech['gbar']*cfg.ihGbar
-#                 if cfg.ihModel == 'migliore':
-#                     mech['clk'] = cfg.ihlkc  # migliore's shunt current factor
-#                     mech['elk'] = cfg.ihlke  # migliore's shunt current reversal potential
-#                 if secName.startswith('dend'):
-#                     mech['gbar'] *= cfg.ihGbarBasal  # modify ih conductance in soma+basal dendrites
-#                     mech['clk'] *= cfg.ihlkcBasal  # modify ih conductance in soma+basal dendrites
-#                 if secName in cellRule['secLists']['below_soma']: #secName.startswith('dend'):
-#                     mech['clk'] *= cfg.ihlkcBelowSoma  # modify ih conductance in soma+basal dendrites
+#    netParams.addCellParamsSecList(label='PT5B_full', secListName='below_soma', somaDistY=[-600, 0])  # sections within 0-300 um of soma
+#      for sec in nonSpiny: cellRule['secLists']['perisom'].remove(sec)
+#      cellRule['secLists']['alldend'] = [sec for sec in cellRule.secs if ('dend' in sec or 'apic' in sec)] # basal+apical
+#      cellRule['secLists']['apicdend'] = [sec for sec in cellRule.secs if ('apic' in sec)] # apical
+#      cellRule['secLists']['spiny'] = [sec for sec in cellRule['secLists']['alldend'] if sec not in nonSpiny]
+     # Adapt ih params based on cfg param
+     # for secName in cellRule['secs']:
+     #     for mechName,mech in cellRule['secs'][secName]['mechs'].items():
+     #         if mechName in ['ih','h','h15', 'hd']:
+     #             mech['gbar'] = [g*cfg.ihGbar for g in mech['gbar']] if isinstance(mech['gbar'],list) else mech['gbar']*cfg.ihGbar
+     #             if cfg.ihModel == 'migliore':
+     #                 mech['clk'] = cfg.ihlkc  # migliore's shunt current factor
+     #                 mech['elk'] = cfg.ihlke  # migliore's shunt current reversal potential
+     #             if secName.startswith('dend'):
+     #                 mech['gbar'] *= cfg.ihGbarBasal  # modify ih conductance in soma+basal dendrites
+     #                 mech['clk'] *= cfg.ihlkcBasal  # modify ih conductance in soma+basal dendrites
+     #             if secName in cellRule['secLists']['below_soma']: #secName.startswith('dend'):
+     #                 mech['clk'] *= cfg.ihlkcBelowSoma  # modify ih conductance in soma+basal dendrites
 #
 #         # Adapt K gbar
 #         for kmech in [k for k in cellRule['secs'][secName]['mechs'].keys() if k.startswith('k') and k!='kBK']:

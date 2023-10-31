@@ -1,0 +1,600 @@
+./CaDynamics_E2.c: ../sim/mod/CaDynamics_E2.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "CaDynamics_E2.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./CaDynamics_E2.o: ./CaDynamics_E2.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Ca_HVA.c: ../sim/mod/Ca_HVA.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Ca_HVA.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./Ca_HVA.o: ./Ca_HVA.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Ca_LVAst.c: ../sim/mod/Ca_LVAst.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Ca_LVAst.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./Ca_LVAst.o: ./Ca_LVAst.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./HCN1.c: ../sim/mod/HCN1.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "HCN1.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./HCN1.o: ./HCN1.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./IC.c: ../sim/mod/IC.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "IC.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./IC.o: ./IC.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./IKsin.c: ../sim/mod/IKsin.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "IKsin.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./IKsin.o: ./IKsin.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Ih.c: ../sim/mod/Ih.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Ih.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./Ih.o: ./Ih.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Im.c: ../sim/mod/Im.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Im.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./Im.o: ./Im.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./K_Pst.c: ../sim/mod/K_Pst.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "K_Pst.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./K_Pst.o: ./K_Pst.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./K_Tst.c: ../sim/mod/K_Tst.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "K_Tst.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./K_Tst.o: ./K_Tst.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./MyExp2SynBB.c: ../sim/mod/MyExp2SynBB.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "MyExp2SynBB.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./MyExp2SynBB.o: ./MyExp2SynBB.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./MyExp2SynNMDABB.c: ../sim/mod/MyExp2SynNMDABB.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "MyExp2SynNMDABB.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./MyExp2SynNMDABB.o: ./MyExp2SynNMDABB.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Nca.c: ../sim/mod/Nca.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Nca.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./Nca.o: ./Nca.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ProbAMPANMDA_EMS.c: ../sim/mod/ProbAMPANMDA_EMS.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ProbAMPANMDA_EMS.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ProbAMPANMDA_EMS.o: ./ProbAMPANMDA_EMS.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ProbGABAAB_EMS.c: ../sim/mod/ProbGABAAB_EMS.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ProbGABAAB_EMS.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ProbGABAAB_EMS.o: ./ProbGABAAB_EMS.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./SK_E2.c: ../sim/mod/SK_E2.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "SK_E2.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./SK_E2.o: ./SK_E2.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./SKv3_1.c: ../sim/mod/SKv3_1.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "SKv3_1.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./SKv3_1.o: ./SKv3_1.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ar_traub.c: ../sim/mod/ar_traub.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ar_traub.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ar_traub.o: ./ar_traub.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./branching.c: ../sim/mod/branching.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "branching.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./branching.o: ./branching.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./cadad.c: ../sim/mod/cadad.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "cadad.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./cadad.o: ./cadad.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./cadyn.c: ../sim/mod/cadyn.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "cadyn.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./cadyn.o: ./cadyn.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./cagk.c: ../sim/mod/cagk.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "cagk.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./cagk.o: ./cagk.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./cal_mh.c: ../sim/mod/cal_mh.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "cal_mh.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./cal_mh.o: ./cal_mh.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./cal_mig.c: ../sim/mod/cal_mig.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "cal_mig.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./cal_mig.o: ./cal_mig.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./can_mig.c: ../sim/mod/can_mig.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "can_mig.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./can_mig.o: ./can_mig.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./cancr.c: ../sim/mod/cancr.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "cancr.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./cancr.o: ./cancr.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./canin.c: ../sim/mod/canin.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "canin.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./canin.o: ./canin.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./cat_mig.c: ../sim/mod/cat_mig.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "cat_mig.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./cat_mig.o: ./cat_mig.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./cat_traub.c: ../sim/mod/cat_traub.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "cat_traub.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./cat_traub.o: ./cat_traub.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./catcb.c: ../sim/mod/catcb.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "catcb.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./catcb.o: ./catcb.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ch_CavL.c: ../sim/mod/ch_CavL.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ch_CavL.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ch_CavL.o: ./ch_CavL.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ch_CavN.c: ../sim/mod/ch_CavN.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ch_CavN.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ch_CavN.o: ./ch_CavN.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ch_KCaS.c: ../sim/mod/ch_KCaS.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ch_KCaS.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ch_KCaS.o: ./ch_KCaS.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ch_Kdrfastngf.c: ../sim/mod/ch_Kdrfastngf.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ch_Kdrfastngf.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ch_Kdrfastngf.o: ./ch_Kdrfastngf.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ch_KvAngf.c: ../sim/mod/ch_KvAngf.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ch_KvAngf.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ch_KvAngf.o: ./ch_KvAngf.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ch_KvCaB.c: ../sim/mod/ch_KvCaB.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ch_KvCaB.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ch_KvCaB.o: ./ch_KvCaB.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ch_Navngf.c: ../sim/mod/ch_Navngf.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ch_Navngf.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ch_Navngf.o: ./ch_Navngf.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ch_leak.c: ../sim/mod/ch_leak.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ch_leak.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ch_leak.o: ./ch_leak.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./dipole.c: ../sim/mod/dipole.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "dipole.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./dipole.o: ./dipole.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./dipole_pp.c: ../sim/mod/dipole_pp.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "dipole_pp.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./dipole_pp.o: ./dipole_pp.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./gabab.c: ../sim/mod/gabab.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "gabab.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./gabab.o: ./gabab.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./h_BS.c: ../sim/mod/h_BS.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "h_BS.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./h_BS.o: ./h_BS.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./h_harnett.c: ../sim/mod/h_harnett.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "h_harnett.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./h_harnett.o: ./h_harnett.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./h_kole.c: ../sim/mod/h_kole.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "h_kole.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./h_kole.o: ./h_kole.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./h_migliore.c: ../sim/mod/h_migliore.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "h_migliore.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./h_migliore.o: ./h_migliore.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./hin.c: ../sim/mod/hin.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "hin.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./hin.o: ./hin.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ican_sidi.c: ../sim/mod/ican_sidi.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ican_sidi.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ican_sidi.o: ./ican_sidi.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./iccr.c: ../sim/mod/iccr.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "iccr.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./iccr.o: ./iccr.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./iconc_Ca.c: ../sim/mod/iconc_Ca.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "iconc_Ca.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./iconc_Ca.o: ./iconc_Ca.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ikscr.c: ../sim/mod/ikscr.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ikscr.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./ikscr.o: ./ikscr.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./kBK.c: ../sim/mod/kBK.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "kBK.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./kBK.o: ./kBK.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./kap_BS.c: ../sim/mod/kap_BS.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "kap_BS.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./kap_BS.o: ./kap_BS.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./kapcb.c: ../sim/mod/kapcb.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "kapcb.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./kapcb.o: ./kapcb.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./kapin.c: ../sim/mod/kapin.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "kapin.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./kapin.o: ./kapin.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./kca.c: ../sim/mod/kca.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "kca.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./kca.o: ./kca.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./kctin.c: ../sim/mod/kctin.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "kctin.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./kctin.o: ./kctin.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./kdmc_BS.c: ../sim/mod/kdmc_BS.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "kdmc_BS.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./kdmc_BS.o: ./kdmc_BS.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./kdr_BS.c: ../sim/mod/kdr_BS.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "kdr_BS.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./kdr_BS.o: ./kdr_BS.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./kdrcr.c: ../sim/mod/kdrcr.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "kdrcr.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./kdrcr.o: ./kdrcr.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./kdrin.c: ../sim/mod/kdrin.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "kdrin.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./kdrin.o: ./kdrin.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./km.c: ../sim/mod/km.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "km.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./km.o: ./km.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./kv.c: ../sim/mod/kv.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "kv.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./kv.o: ./kv.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./my_exp2syn.c: ../sim/mod/my_exp2syn.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "my_exp2syn.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./my_exp2syn.o: ./my_exp2syn.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./na12.c: ../sim/mod/na12.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "na12.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./na12.o: ./na12.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./na12_mut.c: ../sim/mod/na12_mut.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "na12_mut.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./na12_mut.o: ./na12_mut.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./na16.c: ../sim/mod/na16.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "na16.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./na16.o: ./na16.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./na16_mut.c: ../sim/mod/na16_mut.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "na16_mut.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./na16_mut.o: ./na16_mut.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./nafcr.c: ../sim/mod/nafcr.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "nafcr.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./nafcr.o: ./nafcr.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./nafx.c: ../sim/mod/nafx.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "nafx.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./nafx.o: ./nafx.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./nap_sidi.c: ../sim/mod/nap_sidi.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "nap_sidi.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./nap_sidi.o: ./nap_sidi.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./nax_BS.c: ../sim/mod/nax_BS.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "nax_BS.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./nax_BS.o: ./nax_BS.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./naz.c: ../sim/mod/naz.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "naz.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./naz.o: ./naz.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./savedist.c: ../sim/mod/savedist.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "savedist.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./savedist.o: ./savedist.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./vclmp_pl.c: ../sim/mod/vclmp_pl.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "vclmp_pl.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./vclmp_pl.o: ./vclmp_pl.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./vecstim.c: ../sim/mod/vecstim.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../sim/mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "vecstim.mod" -o "/Users/mollyleitner/Desktop/M1_NetPyNE_CellReports_2023/arm64")
+
+./vecstim.o: ./vecstim.c
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(COMPILE) -I"../sim/mod" $(INCLUDES) -fPIC -c $< -o $@
+
