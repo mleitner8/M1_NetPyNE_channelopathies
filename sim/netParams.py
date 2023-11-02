@@ -59,8 +59,9 @@ cellModels = ['HH_simple', 'HH_reduced', 'HH_full']
 layer = {'1':[0.0, 0.1], '2': [0.1,0.29], '4': [0.29,0.37], '5A': [0.37,0.47], '24':[0.1,0.37], '5B': [0.47,0.8], '6': [0.8,1.0], 
 'longTPO': [2.0,2.1], 'longTVL': [2.1,2.2], 'longS1': [2.2,2.3], 'longS2': [2.3,2.4], 'longcM1': [2.4,2.5], 'longM2': [2.5,2.6], 'longOC': [2.6,2.7]}  # normalized layer boundaries
 
-netParams.correctBorder = {'threshold': [cfg.correctBorderThreshold, cfg.correctBorderThreshold, cfg.correctBorderThreshold], 
-                        'yborders': [layer['2'][0], layer['5A'][0], layer['6'][0], layer['6'][1]]}  # correct conn border effect
+netParams.correctBorder = False
+    #{'threshold': [cfg.correctBorderThreshold, cfg.correctBorderThreshold, cfg.correctBorderThreshold],
+                        #'yborders': [layer['2'][0], layer['5A'][0], layer['6'][0], layer['6'][1]]}  # correct conn border effect
 
 #------------------------------------------------------------------------------
 ## Load cell rules previously saved using netpyne format
@@ -132,22 +133,22 @@ for label, p in reducedCells.items():  # create cell rules that were not loaded
 ## PT5B full cell model params (700+ comps)
 #UC Davis PT Cell
 
-netParams = specs.NetParams()
-
 if 'PT5B_full' not in loadCellParams:
-    cellRule = netParams.importCellParams(label = 'PT5B_full',  conds={'cellType': 'PT', 'cellModel': 'HH_full'},
-                                      fileName = 'TTPC_M1_Na_HHTF.py',cellName= 'Na1612Model_TF')
+    ihMod2str = {'harnett': 1, 'kole': 2, 'migliore': 3}
+
+    netParams.loadCellParams('PT5B_full', 'Na1216TF.pkl')
+    cellRule = netParams.cellParams['PT5B_full']
     nonSpiny = ['apic_0', 'apic_1']
-    netParams.addCellParamsSecList(label='PT5B_full', secListName='perisom',
-                                   somaDist=[0, 50])  # sections within 50 um of soma
-    netParams.addCellParamsSecList(label='PT5B_full', secListName='below_soma',
-                               somaDistY=[-600, 0])  # sections within 0-300 um of soma
-    for sec in nonSpiny: cellRule['secLists']['perisom'].remove(sec)
-    cellRule['secLists']['alldend'] = [sec for sec in cellRule.secs if ('dend' in sec or 'apic' in sec)]  # basal+apical
-    cellRule['secLists']['apicdend'] = [sec for sec in cellRule.secs if ('apic' in sec)]  # apical
+    netParams.addCellParamsSecList(label='PT5B_full', secListName='perisom', somaDist=[0, 50])  # sections within 50 um of soma
+    netParams.addCellParamsSecList(label='PT5B_full', secListName='below_soma', somaDistY=[-600, 0])  # sections within 0-300 um of soma
+    for sec in nonSpiny: # N.B. apic_1 not in `perisom` . `apic_0` and `apic_114` are
+        if sec in cellRule['secLists']['perisom']: # fixed logic
+            cellRule['secLists']['perisom'].remove(sec)
+    cellRule['secLists']['alldend'] = [sec for sec in cellRule.secs if ('dend' in sec or 'apic' in sec)] # basal+apical
+    cellRule['secLists']['apicdend'] = [sec for sec in cellRule.secs if ('apic' in sec)] # apical
     cellRule['secLists']['spiny'] = [sec for sec in cellRule['secLists']['alldend'] if sec not in nonSpiny]
 
-if saveCellParams: netParams.saveCellParamsRule(label='PT5B_full', fileName='cells/PT5B_full_cellParams.pkl')
+#cellRule = netParams.loadCellParams('PT5B_full', 'Na1216TF.pickle')
 #
 # if 'PT5B_full' not in loadCellParams:
 #      ihMod2str = {'harnett': 1, 'kole': 2, 'migliore': 3}
@@ -260,7 +261,7 @@ netParams.popParams['SOM2'] =   {'cellModel': 'HH_simple',         'cellType': '
 netParams.popParams['PV2']  =   {'cellModel': 'HH_simple',         'cellType': 'PV', 'ynormRange': layer['24'], 'density': density[('M1','PV')][5]}
 netParams.popParams['IT4']  =   {'cellModel': cfg.cellmod['IT4'],  'cellType': 'IT', 'ynormRange': layer['4'], 'density': density[('M1','E')][1]}
 netParams.popParams['IT5A'] =   {'cellModel': cfg.cellmod['IT5A'], 'cellType': 'IT', 'ynormRange': layer['5A'], 'density': density[('M1','E')][2]}
-netParams.popParams['SOM5A'] =  {'cellModel': 'HH_simple',         'cellType': 'SOM','ynormRange': layer['5A'], 'density': 2*density[('M1','SOM')][2]} #changed
+netParams.popParams['SOM5A'] =  {'cellModel': 'HH_simple',         'cellType': 'SOM','ynormRange': layer['5A'], 'density': density[('M1','SOM')][2]} #changed
 netParams.popParams['PV5A']  =  {'cellModel': 'HH_simple',         'cellType': 'PV', 'ynormRange': layer['5A'], 'density': density[('M1','PV')][2]}
 netParams.popParams['IT5B'] =   {'cellModel': cfg.cellmod['IT5B'], 'cellType': 'IT', 'ynormRange': layer['5B'], 'density': 0.5*density[('M1','E')][3]}
 netParams.popParams['PT5B'] =   {'cellModel': cfg.cellmod['PT5B'], 'cellType': 'PT', 'ynormRange': layer['5B'], 'density': 0.5*density[('M1','E')][3]}
@@ -268,7 +269,7 @@ netParams.popParams['SOM5B'] =  {'cellModel': 'HH_simple',         'cellType': '
 netParams.popParams['PV5B']  =  {'cellModel': 'HH_simple',         'cellType': 'PV', 'ynormRange': layer['5B'], 'density': density[('M1','PV')][3]}
 netParams.popParams['IT6']  =   {'cellModel': cfg.cellmod['IT6'],  'cellType': 'IT', 'ynormRange': layer['6'],  'density': 0.5*density[('M1','E')][4]}
 netParams.popParams['CT6']  =   {'cellModel': cfg.cellmod['CT6'],  'cellType': 'CT', 'ynormRange': layer['6'],  'density': 0.5*density[('M1','E')][4]}
-netParams.popParams['SOM6'] =   {'cellModel': 'HH_simple',         'cellType': 'SOM','ynormRange': layer['6'],  'density': 2*density[('M1','SOM')][4]} #changed
+netParams.popParams['SOM6'] =   {'cellModel': 'HH_simple',         'cellType': 'SOM','ynormRange': layer['6'],  'density': density[('M1','SOM')][4]} #changed
 netParams.popParams['PV6']  =   {'cellModel': 'HH_simple',         'cellType': 'PV', 'ynormRange': layer['6'],  'density': density[('M1','PV')][4]}
 
 if cfg.singleCellPops:
