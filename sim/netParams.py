@@ -135,6 +135,10 @@ if 'PT5B_full' not in loadCellParams:
     cellRule = netParams.importCellParams(label = 'PT5B_full',  conds={'cellType': 'PT', 'cellModel': 'HH_full'},
                                       fileName = 'TTPC_M1_Na_HHTF.py',cellName= 'Na1612Model_TF')
 
+    #cellRule['secs']['axon_0'] and ['axon_1'] have no pt3d
+    cellRule['secs']['axon_0']['geom']['pt3d'] = [[1e300, 1e300, 1e300]]
+    cellRule['secs']['axon_1']['geom']['pt3d'] = [[1e300, 1e300, 1e300]]
+    netParams.renameCellParamsSec(label='PT5B_full', oldSec='soma_0', newSec='soma')
     #cellRule = netParams.importCellParams(label='PT5B_full', conds={'cellType': 'PT', 'cellModel': 'HH_full'},
     #  fileName='cells/PTcell.hoc', cellName='PTcell', cellArgs=[ihMod2str[cfg.ihModel], cfg.ihSlope], somaAtOrigin=True)
     nonSpiny = ['apic_0', 'apic_1']
@@ -143,10 +147,13 @@ if 'PT5B_full' not in loadCellParams:
     for sec in nonSpiny: # N.B. apic_1 not in `perisom` . `apic_0` and `apic_114` are
         if sec in cellRule['secLists']['perisom']: # fixed logic
             cellRule['secLists']['perisom'].remove(sec)
+
     cellRule['secLists']['alldend'] = [sec for sec in cellRule.secs if ('dend' in sec or 'apic' in sec)] # basal+apical
     cellRule['secLists']['apicdend'] = [sec for sec in cellRule.secs if ('apic' in sec)] # apical
     cellRule['secLists']['spiny'] = [sec for sec in cellRule['secLists']['alldend'] if sec not in nonSpiny]
     # Adapt ih params based on cfg param
+
+    #TODO - generate .pkl, weightNorm implementation
     """
     for secName in cellRule['secs']:
         for mechName,mech in cellRule['secs'][secName]['mechs'].items():
