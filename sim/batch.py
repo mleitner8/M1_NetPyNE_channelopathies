@@ -562,7 +562,7 @@ if __name__ == '__main__':
     # b = v56_batch7()
     
     # Figures 3, 4 (Control Quiet+Move)
-    b = v56_batch19()
+    #b = v56_batch19()
 
     # Figure 5 (MTh Inact Quiet+Move)
     # b = v56_batch20()
@@ -573,7 +573,9 @@ if __name__ == '__main__':
     # Figure 6 (VL vs Ih Quiet+Move)
     # b = v56_batch5b()
 
+    b = weightNormE(['PT5B'], None, True, 'PT5B_full', list(np.arange(0.01, 0.2, 0.01)/100.0))
+
     b.saveFolder = '../data/'+b.batchLabel
     b.method = 'grid'  # evol
-    setRunCfg(b, 'hpc_slurm_gcp', nodes=1, coresPerNode=96)  # cores = nodes * 8 
+    setRunCfg(b, 'mpi_bulletin')  # cores = nodes * 8
     b.run() # run batch 
