@@ -5,25 +5,27 @@ Batch simulation for M1 model using NetPyNE
 
 Contributors: salvadordura@gmail.com
 """
-from netpyne.batch import Batch
-from netpyne import specs
 import numpy as np
+from netpyne import specs
+from netpyne.batch import Batch
+
 
 # ----------------------------------------------------------------------------------------------
 # Weight Normalization Exc
 # ----------------------------------------------------------------------------------------------
-def weightNormE(pops=['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2', 'SOM2'], 
-    segs = None, allSegs = True, rule = 'IT2_reduced', weights=list(np.arange(0.01, 0.2, 0.01)/100.0)):
+
+def weightNormE(pops= ['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2', 'SOM2'],
+    segs = None, allSegs = True, rule = 'PT5B_full', weights=list(np.arange(0.01, 0.2, 0.01)/100.0)):
 
     # Add params
-    from cfg_cell import cfg
     from netParams_cell import netParams
+    from cfg_cell import cfg
 
     excludeSegs = ['axon']
     if not segs:
         secs = []
         locs = []
-        for secName,sec in netParams.cellParams[rule]['secs'].iteritems():
+        for secName, sec in netParams.cellParams[rule]['secs'].items():
             if secName not in excludeSegs:
                 if allSegs:
                     nseg = sec['geom']['nseg']
