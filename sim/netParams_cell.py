@@ -17,7 +17,7 @@ netParams.version = 56
 try:
     from __main__ import cfg  # import SimConfig object with params from parent module
 except:
-    from cfg import cfg
+    from cfg_cell import cfg
 
 #------------------------------------------------------------------------------
 #
@@ -85,49 +85,7 @@ for ruleLabel in loadCellParams:
 # Includes importing from hoc template or python class, and setting additional params
 
 #------------------------------------------------------------------------------
-# Reduced cell model params (6-comp) 
-reducedCells = {  # layer and cell type for reduced cell models
-    'IT2_reduced':  {'layer': '2',  'cname': 'CSTR6', 'carg': 'BS1578'}, 
-    'IT4_reduced':  {'layer': '4',  'cname': 'CSTR6', 'carg': 'BS1578'},
-    'IT5A_reduced': {'layer': '5A', 'cname': 'CSTR6', 'carg': 'BS1579'},
-    'IT5B_reduced': {'layer': '5B', 'cname': 'CSTR6', 'carg': 'BS1579'},
-    'PT5B_reduced': {'layer': '5B', 'cname': 'SPI6',  'carg':  None},
-    'IT6_reduced':  {'layer': '6',  'cname': 'CSTR6', 'carg': 'BS1579'},
-    'CT6_reduced':  {'layer': '6',  'cname': 'CSTR6', 'carg': 'BS1578'}}
-
-reducedSecList = {  # section Lists for reduced cell model
-    'alldend':  ['Adend1', 'Adend2', 'Adend3', 'Bdend'],
-    'spiny':    ['Adend1', 'Adend2', 'Adend3', 'Bdend'],
-    'apicdend': ['Adend1', 'Adend2', 'Adend3'],
-    'perisom':  ['soma']}
-
-for label, p in reducedCells.items():  # create cell rules that were not loaded 
-    if label not in loadCellParams:
-        cellRule = netParams.importCellParams(label=label, conds={'cellType': label[0:2], 'cellModel': 'HH_reduced', 'ynorm': layer[p['layer']]},
-        fileName='cells/'+p['cname']+'.py', cellName=p['cname'], cellArgs={'params': p['carg']} if p['carg'] else None)
-        dendL = (layer[p['layer']][0]+(layer[p['layer']][1]-layer[p['layer']][0])/2.0) * cfg.sizeY  # adapt dend L based on layer
-        for secName in ['Adend1', 'Adend2', 'Adend3', 'Bdend']: cellRule['secs'][secName]['geom']['L'] = dendL / 3.0  # update dend L
-        for k,v in reducedSecList.items(): cellRule['secLists'][k] = v  # add secLists
-        netParams.addCellParamsWeightNorm(label, 'conn/'+label+'_weightNorm.pkl', threshold=cfg.weightNormThreshold)  # add weightNorm
-
-        # set 3d points
-        offset, prevL = 0, 0
-        somaL = netParams.cellParams[label]['secs']['soma']['geom']['L']
-        for secName, sec in netParams.cellParams[label]['secs'].items():
-            sec['geom']['pt3d'] = []
-            if secName in ['soma', 'Adend1', 'Adend2', 'Adend3']:  # set 3d geom of soma and Adends
-                sec['geom']['pt3d'].append([offset+0, prevL, 0, sec['geom']['diam']])
-                prevL = float(prevL + sec['geom']['L'])
-                sec['geom']['pt3d'].append([offset+0, prevL, 0, sec['geom']['diam']])
-            if secName in ['Bdend']:  # set 3d geom of Bdend
-                sec['geom']['pt3d'].append([offset+0, somaL, 0, sec['geom']['diam']])
-                sec['geom']['pt3d'].append([offset+sec['geom']['L'], somaL, 0, sec['geom']['diam']])        
-            if secName in ['axon']:  # set 3d geom of axon
-                sec['geom']['pt3d'].append([offset+0, 0, 0, sec['geom']['diam']])
-                sec['geom']['pt3d'].append([offset+0, -sec['geom']['L'], 0, sec['geom']['diam']])   
-
-        if saveCellParams: netParams.saveCellParamsRule(label=label, fileName='cells/'+label+'_cellParams.pkl')
-
+# Reduced cell model params (6-comp) deleted
 
 #------------------------------------------------------------------------------
 ## PT5B full cell model params (700+ comps)
@@ -206,9 +164,6 @@ if 'SOM_simple' not in loadCellParams:
     netParams.addCellParamsWeightNorm('SOM_simple', 'conn/SOM_simple_weightNorm.pkl', threshold=cfg.weightNormThreshold)
     if saveCellParams: netParams.saveCellParamsRule(label='SOM_simple', fileName='cells/SOM_simple_cellParams.pkl')
 
-
-
-
 #------------------------------------------------------------------------------
 # Population parameters
 #------------------------------------------------------------------------------
@@ -219,21 +174,8 @@ with open('cells/cellDensity.pkl', 'rb') as fileObj: density = pickle.load(fileO
 
 ## Local populations
 
-#netParams.popParams['IT2']  =   {'cellModel': cfg.cellmod['IT2'],  'cellType': 'IT', 'ynormRange': layer['2'], 'density': density[('M1','E')][0]}
-#netParams.popParams['SOM2'] =   {'cellModel': 'HH_simple',         'cellType': 'SOM','ynormRange': layer['24'], 'density': density[('M1','SOM')][5]}
-#netParams.popParams['PV2']  =   {'cellModel': 'HH_simple',         'cellType': 'PV', 'ynormRange': layer['24'], 'density': density[('M1','PV')][5]}
-#netParams.popParams['IT4']  =   {'cellModel': cfg.cellmod['IT4'],  'cellType': 'IT', 'ynormRange': layer['4'], 'density': density[('M1','E')][1]}
-#netParams.popParams['IT5A'] =   {'cellModel': cfg.cellmod['IT5A'], 'cellType': 'IT', 'ynormRange': layer['5A'], 'density': density[('M1','E')][2]}
-#netParams.popParams['SOM5A'] =  {'cellModel': 'HH_simple',         'cellType': 'SOM','ynormRange': layer['5A'], 'density': density[('M1','SOM')][2]} #changed
-#netParams.popParams['PV5A']  =  {'cellModel': 'HH_simple',         'cellType': 'PV', 'ynormRange': layer['5A'], 'density': density[('M1','PV')][2]}
-#netParams.popParams['IT5B'] =   {'cellModel': cfg.cellmod['IT5B'], 'cellType': 'IT', 'ynormRange': layer['5B'], 'density': 0.5*density[('M1','E')][3]}
+
 netParams.popParams['PT5B'] =   {'cellModel': cfg.cellmod['PT5B'], 'cellType': 'PT', 'ynormRange': layer['5B'], 'density': 0.5*density[('M1','E')][3]}
-#netParams.popParams['SOM5B'] =  {'cellModel': 'HH_simple',         'cellType': 'SOM','ynormRange': layer['5B'], 'density': density[('M1','SOM')][3]}
-#netParams.popParams['PV5B']  =  {'cellModel': 'HH_simple',         'cellType': 'PV', 'ynormRange': layer['5B'], 'density': density[('M1','PV')][3]}
-#netParams.popParams['IT6']  =   {'cellModel': cfg.cellmod['IT6'],  'cellType': 'IT', 'ynormRange': layer['6'],  'density': 0.5*density[('M1','E')][4]}
-#netParams.popParams['CT6']  =   {'cellModel': cfg.cellmod['CT6'],  'cellType': 'CT', 'ynormRange': layer['6'],  'density': 0.5*density[('M1','E')][4]}
-#netParams.popParams['SOM6'] =   {'cellModel': 'HH_simple',         'cellType': 'SOM','ynormRange': layer['6'],  'density': density[('M1','SOM')][4]} #changed
-#netParams.popParams['PV6']  =   {'cellModel': 'HH_simple',         'cellType': 'PV', 'ynormRange': layer['6'],  'density': density[('M1','PV')][4]}
 
 if cfg.singleCellPops:
     for pop in netParams.popParams.values(): pop['numCells'] = 1
