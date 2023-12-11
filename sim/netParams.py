@@ -137,7 +137,12 @@ if 'PT5B_full' not in loadCellParams:
     ihMod2str = {'harnett': 1, 'kole': 2, 'migliore': 3}
 
     netParams.loadCellParams('PT5B_full', 'Na1216TF.pkl')
+    netParams.renameCellParamsSec(label='PT5B_full', oldSec ='soma_0', newSec ='soma')
     cellRule = netParams.cellParams['PT5B_full']
+
+    cellRule['secs']['axon_0']['geom']['pt3d'] = [[1e30, 1e30, 1e30]]
+    cellRule['secs']['axon_1']['geom']['pt3d'] = [[1e30, 1e30, 1e30]]
+
     nonSpiny = ['apic_0', 'apic_1']
     netParams.addCellParamsSecList(label='PT5B_full', secListName='perisom', somaDist=[0, 50])  # sections within 50 um of soma
     netParams.addCellParamsSecList(label='PT5B_full', secListName='below_soma', somaDistY=[-600, 0])  # sections within 0-300 um of soma
@@ -148,48 +153,6 @@ if 'PT5B_full' not in loadCellParams:
     cellRule['secLists']['apicdend'] = [sec for sec in cellRule.secs if ('apic' in sec)] # apical
     cellRule['secLists']['spiny'] = [sec for sec in cellRule['secLists']['alldend'] if sec not in nonSpiny]
 
-#cellRule = netParams.loadCellParams('PT5B_full', 'Na1216TF.pickle')
-#
-# if 'PT5B_full' not in loadCellParams:
-#      ihMod2str = {'harnett': 1, 'kole': 2, 'migliore': 3}
-#      cellRule = netParams.importCellParams(label='PT5B_full', conds={'cellType': 'PT', 'cellModel': 'HH_full'},
-#        fileName='cells/PTcell.hoc', cellName='PTcell', cellArgs=[ihMod2str[cfg.ihModel], cfg.ihSlope], somaAtOrigin=True)
-#      nonSpiny = ['apic_0', 'apic_1']
-#     netParams.addCellParamsSecList(label='PT5B_full', secListName='perisom', somaDist=[0, 50])  # sections within 50 um of soma
-#    netParams.addCellParamsSecList(label='PT5B_full', secListName='below_soma', somaDistY=[-600, 0])  # sections within 0-300 um of soma
-#      for sec in nonSpiny: cellRule['secLists']['perisom'].remove(sec)
-#      cellRule['secLists']['alldend'] = [sec for sec in cellRule.secs if ('dend' in sec or 'apic' in sec)] # basal+apical
-#      cellRule['secLists']['apicdend'] = [sec for sec in cellRule.secs if ('apic' in sec)] # apical
-#      cellRule['secLists']['spiny'] = [sec for sec in cellRule['secLists']['alldend'] if sec not in nonSpiny]
-     # Adapt ih params based on cfg param
-     # for secName in cellRule['secs']:
-     #     for mechName,mech in cellRule['secs'][secName]['mechs'].items():
-     #         if mechName in ['ih','h','h15', 'hd']:
-     #             mech['gbar'] = [g*cfg.ihGbar for g in mech['gbar']] if isinstance(mech['gbar'],list) else mech['gbar']*cfg.ihGbar
-     #             if cfg.ihModel == 'migliore':
-     #                 mech['clk'] = cfg.ihlkc  # migliore's shunt current factor
-     #                 mech['elk'] = cfg.ihlke  # migliore's shunt current reversal potential
-     #             if secName.startswith('dend'):
-     #                 mech['gbar'] *= cfg.ihGbarBasal  # modify ih conductance in soma+basal dendrites
-     #                 mech['clk'] *= cfg.ihlkcBasal  # modify ih conductance in soma+basal dendrites
-     #             if secName in cellRule['secLists']['below_soma']: #secName.startswith('dend'):
-     #                 mech['clk'] *= cfg.ihlkcBelowSoma  # modify ih conductance in soma+basal dendrites
-#
-#         # Adapt K gbar
-#         for kmech in [k for k in cellRule['secs'][secName]['mechs'].keys() if k.startswith('k') and k!='kBK']:
-#             cellRule['secs'][secName]['mechs'][kmech]['gbar'] *= cfg.KgbarFactor
-#
-#     # Reduce dend Na to avoid dend spikes (compensate properties by modifying axon params)
-#     for secName in cellRule['secLists']['alldend']:
-#         cellRule['secs'][secName]['mechs']['nax']['gbar'] = 0.0153130368342 * cfg.dendNa # 0.25
-#
-#
-#     cellRule['secs']['soma']['mechs']['nax']['gbar'] = 0.0153130368342  * cfg.somaNa
-#     cellRule['secs']['axon']['mechs']['nax']['gbar'] = 0.0153130368342  * cfg.axonNa # 11
-#     cellRule['secs']['axon']['geom']['Ra'] = 137.494564931 * cfg.axonRa # 0.005
-#     # Remove Na (TTX)
-#     if cfg.removeNa:
-#         for secName in cellRule['secs']: cellRule['secs'][secName]['mechs']['nax']['gbar'] = 0.0
 #     netParams.addCellParamsWeightNorm('PT5B_full', 'conn/PT5B_full_weightNorm.pkl', threshold=cfg.weightNormThreshold)  # load weight norm
 #     if saveCellParams: netParams.saveCellParamsRule(label='PT5B_full', fileName='cells/PT5B_full_cellParams.pkl')
 

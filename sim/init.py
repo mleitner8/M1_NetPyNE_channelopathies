@@ -56,7 +56,7 @@ def modifyMechsFunc(simTime):
 
 # -----------------------------------------------------------
 # Main code
-cfg, netParams = sim.readCmdLineArgs()
+cfg, netParams = sim.readCmdLineArgs(simConfigDefault='cfg.py', netParamsDefault='netParams.py')
 sim.initialize(
     simConfig = cfg, 	
     netParams = netParams)  # create network object and set cfg and net params
@@ -76,11 +76,11 @@ print(cfg.modifyMechs)
 sim.runSimWithIntervalFunc(1000.0, modifyMechsFunc)       # run parallel Neuron simulation (calling func to modify mechs)
 
 # Gather/save data option 1: standard
-# sim.gatherData()
+sim.gatherData()
 
 # Gather/save data option 2: distributed saving across nodes 
-sim.saveDataInNodes()
-sim.gatherDataFromFiles()
+#sim.saveDataInNodes()
+#sim.gatherDataFromFiles()
 
 sim.saveData()                    			# save params, cell info and sim output to file (pickle,mat,txt,etc)#
 sim.analysis.plotData()         			# plot spike raster etc
