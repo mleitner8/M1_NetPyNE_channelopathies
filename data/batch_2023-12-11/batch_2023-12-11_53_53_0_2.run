@@ -1,0 +1,69 @@
+
+Reading command line arguments using syntax: python file.py [simConfig=filepath] [netParams=filepath]
+Importing simConfig from ../data/batch_2023-12-11/batch_2023-12-11_53_53_0_2_cfg.json
+Loading file ../data/batch_2023-12-11/batch_2023-12-11_53_53_0_2_cfg.json ... 
+Loading simConfig...
+Importing netParams from ../data/batch_2023-12-11/batch_2023-12-11_netParams.py
+
+Start time:  2023-12-11 09:34:02.305377
+
+Creating network of 8 cell populations on 1 hosts...
+  Number of cells on node 0: 700 
+  Done; cell creation time = 0.05 s.
+Making connections...
+  Distributing synapses based on subcellular connectivity rules...
+  Number of connections on node 0: 0 
+  Done; cell connection time = 0.06 s.
+Adding stims...
+  Number of stims on node 0: 0 
+  Done; cell stims creation time = 0.00 s.
+Recording 0 traces of 0 types on node 0
+0.0s
+
+Running simulation using NEURON for 1000.0 ms...
+0.1s
+0.2s
+0.3s
+0.4s
+0.5s
+0.6s
+0.7s
+0.8s
+0.9s
+1.0s
+  Done; run time = 0.19 s; real-time ratio: 5.32.
+
+Gathering data...
+  Done; gather time = 0.01 s.
+
+Analyzing...
+  Cells: 700
+  Connections: 0 (0.00 per cell)
+  Spikes: 1348 (1.93 Hz)
+  Simulated time: 1.0 s; 1 workers
+  Run time: 0.19 s
+   TPO : 0.000 Hz
+   TVL : 0.000 Hz
+   S1 : 0.000 Hz
+   S2 : 0.000 Hz
+   cM1 : 0.000 Hz
+   M2 : 0.000 Hz
+   OC : 0.000 Hz
+Saving output as ../data/batch_2023-12-11/batch_2023-12-11_53_53_0_2_data.pkl ... 
+Finished saving!
+  Done; saving time = 0.24 s.
+Preparing LFP data...
+Plotting LFP time series...
+  There was an exception in plotLFPTimeSeries(): 
+    zero-size array to reduction operation maximum which has no identity 
+    (<class 'ValueError'>, ValueError('zero-size array to reduction operation maximum which has no identity'), <traceback object at 0x17a8ef840>)
+Preparing spike data...
+No spikes available to plot raster
+Plotting raster...
+  There was an exception in plotRaster(): 
+    cannot access local variable 'spkInds' where it is not associated with a value 
+    (<class 'UnboundLocalError'>, UnboundLocalError("cannot access local variable 'spkInds' where it is not associated with a value"), <traceback object at 0x177f44440>)
+Plotting recorded cell traces ... trace
+  Done; plotting time = 0.04 s
+
+Total time = 0.59 s

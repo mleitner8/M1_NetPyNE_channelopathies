@@ -491,7 +491,7 @@ def v56_batch5b():
 def setRunCfg(b, type='mpi_bulletin', nodes=1, coresPerNode=8):
     if type=='mpi_bulletin':
         b.runCfg = {'type': 'mpi_bulletin', 
-            'script': 'init.py', 
+            'script': 'init_cell.py',
             'skip': True}
 
     elif type=='mpi_direct':
