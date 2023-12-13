@@ -5,25 +5,27 @@ Batch simulation for M1 model using NetPyNE
 
 Contributors: salvadordura@gmail.com
 """
-from netpyne.batch import Batch
-from netpyne import specs
 import numpy as np
+from netpyne import specs
+from netpyne.batch import Batch
+
 
 # ----------------------------------------------------------------------------------------------
 # Weight Normalization Exc
 # ----------------------------------------------------------------------------------------------
-def weightNormE(pops=['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2', 'SOM2'], 
-    segs = None, allSegs = True, rule = 'IT2_reduced', weights=list(np.arange(0.01, 0.2, 0.01)/100.0)):
+
+def weightNormE(pops= ['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2', 'SOM2'],
+    segs = None, allSegs = True, rule = 'PT5B_full', weights=list(np.arange(0.01, 0.2, 0.01)/100.0)):
 
     # Add params
-    from cfg_cell import cfg
     from netParams_cell import netParams
+    from cfg_cell import cfg
 
     excludeSegs = ['axon']
     if not segs:
         secs = []
         locs = []
-        for secName,sec in netParams.cellParams[rule]['secs'].iteritems():
+        for secName, sec in netParams.cellParams[rule]['secs'].items():
             if secName not in excludeSegs:
                 if allSegs:
                     nseg = sec['geom']['nseg']
@@ -562,7 +564,7 @@ if __name__ == '__main__':
     # b = v56_batch7()
     
     # Figures 3, 4 (Control Quiet+Move)
-    b = v56_batch19()
+    #b = v56_batch19()
 
     # Figure 5 (MTh Inact Quiet+Move)
     # b = v56_batch20()
@@ -573,7 +575,9 @@ if __name__ == '__main__':
     # Figure 6 (VL vs Ih Quiet+Move)
     # b = v56_batch5b()
 
+    b = weightNormE(['PT5B'], None, True, 'PT5B_full', list(np.arange(0.01, 0.2, 0.01)/100.0))
+
     b.saveFolder = '../data/'+b.batchLabel
     b.method = 'grid'  # evol
-    setRunCfg(b, 'hpc_slurm_gcp', nodes=1, coresPerNode=96)  # cores = nodes * 8 
+    setRunCfg(b, 'mpi_bulletin')  # cores = nodes * 8
     b.run() # run batch 
