@@ -14,8 +14,9 @@ from netpyne.batch import Batch
 # Weight Normalization Exc
 # ----------------------------------------------------------------------------------------------
 
-def weightNormE(pops= ['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2', 'SOM2'],
-    segs = None, allSegs = True, rule = 'PT5B_full', weights=list(np.arange(0.01, 0.2, 0.01)/100.0)):
+#pops =  ['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2', 'SOM2'],
+def weightNormE(pops = 'PT5B', segs = None,
+                allSegs = True, rule = 'PT5B_full', weights=list(np.arange(0.01, 0.2, 0.01)/100.0)):
 
     # Add params
     from netParams_cell import netParams
@@ -56,11 +57,12 @@ def weightNormE(pops= ['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2'
     initCfg[('NetStim1', 'interval')] = 1000
     initCfg[('NetStim1','ynorm')] = [0.0, 1.0]
 
+    initCfg[('NetStim1', 'pop')] = 'PT5B'
+
     initCfg[('NetStim1', 'noise')] = 0
     initCfg[('NetStim1', 'number')] = 1
     initCfg[('NetStim1', 'delay')] = 1
     #initCfg[('GroupNetStimW1', 'pop')] = 'None'
-    initCfg[('NetStim1', 'delay')] = 1
     initCfg['addIClamp'] = 0
     
     b = Batch(params=params, netParamsFile='netParams_cell.py', cfgFile='cfg_cell.py', initCfg=initCfg, groupedParams=groupedParams)
@@ -169,13 +171,13 @@ def v56_batch7():
     initCfg['IIGain'] = 1.0
     initCfg['IPTGain'] = 1.0
 
-    initCfg[('ratesLong', 'TPO', 1)] = 5 	
-    initCfg[('ratesLong', 'TVL', 1)] = 2.5
-    initCfg[('ratesLong', 'S1', 1)] = 5
-    initCfg[('ratesLong', 'S2', 1)] = 5 
-    initCfg[('ratesLong', 'cM1', 1)] = 2.5
-    initCfg[('ratesLong', 'M2', 1)] = 2.5
-    initCfg[('ratesLong', 'OC', 1)] = 5
+    #initCfg[('ratesLong', 'TPO', 1)] = 5
+    #initCfg[('ratesLong', 'TVL', 1)] = 2.5
+    #initCfg[('ratesLong', 'S1', 1)] = 5
+    #initCfg[('ratesLong', 'S2', 1)] = 5
+    #initCfg[('ratesLong', 'cM1', 1)] = 2.5
+    #initCfg[('ratesLong', 'M2', 1)] = 2.5
+    #initCfg[('ratesLong', 'OC', 1)] = 5
     
     # initCfg[('pulse', 'pop')] = 'TVL'
     # initCfg[('pulse', 'rate')] = [0, 10.0]
@@ -244,19 +246,19 @@ def v56_batch19():
     initCfg['IIGain'] = 1.0
     initCfg['IPTGain'] = 1.0
 
-    initCfg[('ratesLong', 'TPO', 1)] = 5 	
-    initCfg[('ratesLong', 'TVL', 1)] = 2.5
-    initCfg[('ratesLong', 'S1', 1)] = 5
-    initCfg[('ratesLong', 'S2', 1)] = 5 
-    initCfg[('ratesLong', 'cM1', 1)] = 2.5
-    initCfg[('ratesLong', 'M2', 1)] = 2.5
-    initCfg[('ratesLong', 'OC', 1)] = 5
+    #initCfg[('ratesLong', 'TPO', 1)] = 5
+    #initCfg[('ratesLong', 'TVL', 1)] = 2.5
+    #initCfg[('ratesLong', 'S1', 1)] = 5
+    #initCfg[('ratesLong', 'S2', 1)] = 5
+    #initCfg[('ratesLong', 'cM1', 1)] = 2.5
+    #initCfg[('ratesLong', 'M2', 1)] = 2.5
+    #initCfg[('ratesLong', 'OC', 1)] = 5
     
-    initCfg[('pulse', 'pop')] = 'TVL'
-    initCfg[('pulse', 'rate')] = [0, 10.0]
-    initCfg[('pulse', 'start')] = 5000.0
-    initCfg[('pulse', 'end')] = 9000.0
-    initCfg[('pulse', 'noise')] = 1.0
+   # initCfg[('pulse', 'pop')] = 'TVL'
+    #initCfg[('pulse', 'rate')] = [0, 10.0]
+    #initCfg[('pulse', 'start')] = 5000.0
+    #initCfg[('pulse', 'end')] = 9000.0
+    #initCfg[('pulse', 'noise')] = 1.0
 
     # # L2/3+4
     initCfg[('IEweights',0)] =  0.8

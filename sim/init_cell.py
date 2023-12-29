@@ -26,12 +26,13 @@ sim.initialize(
     simConfig = cfg, 	
     netParams = netParams)  # create network object and set cfg and net params
 
-sim.pc.timeout(300)                          # set nrn_timeout threshold to X sec (max time allowed without increasing simulation time, t; 0 = turn off)
+sim.pc.timeout(300)                         # set nrn_timeout threshold to X sec (max time allowed without increasing simulation time, t; 0 = turn off)
 sim.net.createPops()               			# instantiate network populations
 sim.net.createCells()              			# instantiate network cells based on defined populations
 sim.net.connectCells()            			# create connections between cells based on params
 sim.net.addStims() 							# add network stimulation
 sim.setupRecording()              			# setup variables to record for each cell (spikes, V traces, etc)
+
 
 # Simulation option 1: standard
 sim.runSim()                              # run parallel Neuron simulation (calling func to modify mechs)
