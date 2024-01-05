@@ -147,22 +147,6 @@ PVSynMech = ['GABAA']
 
 
 #------------------------------------------------------------------------------
-# Long range input pulses
-#------------------------------------------------------------------------------
-if cfg.addPulses:
-    for key in [k for k in dir(cfg) if k.startswith('pulse')]:
-        params = getattr(cfg, key, None)
-        [pop, start, end, rate, noise] = [params[s] for s in ['pop', 'start', 'end', 'rate', 'noise']]
-        if 'duration' in params and params['duration'] is not None and params['duration'] > 0:
-            end = start + params['duration']
-
-        if pop in netParams.popParams:
-            if 'pulses' not in netParams.popParams[pop]: netParams.popParams[pop]['pulses'] = {}    
-            netParams.popParams[pop]['pulses'].append({'start': start, 'end': end, 'rate': rate, 'noise': noise})
-
-
-
-#------------------------------------------------------------------------------
 # Current inputs (IClamp)
 #------------------------------------------------------------------------------
 if cfg.addIClamp:
@@ -475,7 +459,7 @@ if cfg.addSubConn:
     #------------------------------------------------------------------------------
     # All->I; apical dendrites (no sCRACM)
     netParams.subConnParams['All->I'] = {
-        'preConds': {'cellType': ['IT', 'CT', 'PT', 'SOM', 'PV']+longPops}, 
+        'preConds': {'cellType': ['IT', 'CT', 'PT', 'SOM', 'PV']},
         'postConds': {'cellType': ['SOM', 'PV']},  
         'sec': 'spiny',
         'groupSynMechs': ESynMech,

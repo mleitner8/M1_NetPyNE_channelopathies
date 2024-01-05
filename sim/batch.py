@@ -15,15 +15,16 @@ from netpyne.batch import Batch
 # ----------------------------------------------------------------------------------------------
 
 #pops =  ['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2', 'SOM2'],
-def weightNormE(pops = 'PT5B', segs = None,
-                allSegs = True, rule = 'PT5B_full', weights=list(np.arange(0.01, 0.2, 0.01)/100.0)):
+def weightNormE(pops = ['PT5B'], secs =
+                None, locs = None,
+                allSegs = True, rule = 'PT5B_full', weights= (0.1, 0.2)):
 
     # Add params
     from netParams_cell import netParams
     from cfg_cell import cfg
 
     excludeSegs = ['axon']
-    if not segs:
+    if not secs:
         secs = []
         locs = []
         for secName, sec in netParams.cellParams[rule]['secs'].items():
@@ -39,11 +40,21 @@ def weightNormE(pops = 'PT5B', segs = None,
 
     params = specs.ODict()
     params[('NetStim1', 'pop')] = pops
-    params[('NetStim1', 'sec')] = secs
     params[('NetStim1', 'loc')] = locs
+    params[('NetStim1', 'sec')] = secs
     params[('NetStim1', 'weight')] = weights
 
     groupedParams = [('NetStim1', 'sec'), ('NetStim1', 'loc')] 
+
+
+    #cfg.recordTraces = {'V_soma': {'sec': 'soma', 'loc': 0.5, 'var': 'v'}}
+    #cfg.analysis['plotRaster'] = {'include': 'PT5B', 'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False,
+                                  #'popRates': True, 'orderInverse': True, 'figSize': (12, 10),
+                                  #'lw': 0.3, 'markerSize': 3, 'marker': '.', 'dpi': 300}
+
+    #cfg.analysis['plotTraces'] = {'include': 'PT5B', 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace',
+                                  #'figSize': (10, 4), 'saveFig': True, 'showFig': False}
+
 
     initCfg = {}
     initCfg['duration'] = 1.0*1e3
@@ -577,7 +588,8 @@ if __name__ == '__main__':
     # Figure 6 (VL vs Ih Quiet+Move)
     # b = v56_batch5b()
 
-    b = weightNormE(['PT5B'], None, True, 'PT5B_full', list(np.arange(0.01, 0.2, 0.01)/100.0))
+    b = weightNormE(pops = ['PT5B'], secs = ['soma'], locs = [0.5],
+                allSegs = False, rule = 'PT5B_full', weights= [0.1, 0.2])
 
     b.saveFolder = '../data/'+b.batchLabel
     b.method = 'grid'  # evol

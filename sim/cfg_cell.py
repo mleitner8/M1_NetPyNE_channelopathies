@@ -81,21 +81,15 @@ cfg.compactConnFormat = 0
 #------------------------------------------------------------------------------
 with open('cells/popColors.pkl', 'rb') as fileObj: popColors = pickle.load(fileObj)['popColors']
 
-cfg.analysis['plotRaster'] = {'include': PT5B,'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'popRates': True, 'orderInverse': True, 'popColors': popColors, 'figSize': (12,10), 'lw': 0.3, 'markerSize':3, 'marker': '.', 'dpi': 300}
+cfg.analysis['plotRaster'] = {'include': 'PT5B','timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'popRates': True, 'orderInverse': True, 'popColors': popColors, 'figSize': (12,10), 'lw': 0.3, 'markerSize':3, 'marker': '.', 'dpi': 300}
 
-cfg.analysis['plotTraces'] = {'include': [], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'figSize': (10,4), 'saveFig': True, 'showFig': False} 
-
+cfg.analysis['plotTraces'] = {'include': ['PT5B'], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'figSize': (10,4), 'saveFig': True, 'showFig': False}
+#originally 'include': []
 
 #------------------------------------------------------------------------------
 # Cells
 #------------------------------------------------------------------------------
-cfg.cellmod =  {'IT2': 'HH_reduced',
-				'IT4': 'HH_reduced',
-				'IT5A': 'HH_full',
-				'IT5B': 'HH_reduced',
-				'PT5B': 'HH_full',
-				'IT6': 'HH_reduced',
-				'CT6': 'HH_reduced'}
+cfg.cellmod = {'PT5B': 'HH_full'}
 
 cfg.ihModel = 'migliore'  # ih model
 cfg.ihGbar = 1.0  # multiplicative factor for ih gbar in PT cells
@@ -190,9 +184,9 @@ cfg.addSubConn = 1
 
 
 ## input pulses
-cfg.addPulses = 1
-cfg.pulse = {'pop': 'None', 'start': 1000, 'end': 1200, 'rate': [0, 20], 'noise': 0.8}
-cfg.pulse2 = {'pop': 'None', 'start': 1000, 'end': 1200, 'rate': [0, 20], 'noise': 0.5, 'duration': 500}
+#cfg.addPulses = 1
+#cfg.pulse = {'pop': 'None', 'start': 1000, 'end': 1200, 'rate': [0, 20], 'noise': 0.8}
+#cfg.pulse2 = {'pop': 'None', 'start': 1000, 'end': 1200, 'rate': [0, 20], 'noise': 0.5, 'duration': 500}
 
 
 #------------------------------------------------------------------------------
@@ -205,7 +199,7 @@ cfg.IClamp1 = {'pop': 'PT5B', 'sec': 'soma', 'loc': 0.5, 'start': 0, 'dur': 1000
 #IT5B
 
 #------------------------------------------------------------------------------
-# PT5B NetStim inputs
+# NetStim inputs
 #------------------------------------------------------------------------------
 cfg.addNetStim = 0
 
@@ -213,12 +207,3 @@ cfg.addNetStim = 0
 cfg.NetStim1 = {'pop': 'PT5B', 'ynorm':[0,1], 'sec': 'soma', 'loc': 0.5, 'synMech': ['NMDA'], 'synMechWeightFactor': [0.5, 0.5],
 				'start': 700, 'interval': 1000, 'noise': 0.0, 'number': 1, 'weight': 30.0, 'delay': 1}
 
-
-#-------------------------------------------------------------------------------
-# Old NetStim inputs
-#------------------------------------------------------------------------------
-#cfg.addNetStim = 0
-
- 			   ## pop, sec, loc, synMech, start, interval, noise, number, weight, delay
-#cfg.NetStim1 = {'pop': 'IT2', 'ynorm':[0,1], 'sec': 'soma', 'loc': 0.5, 'synMech': ['AMPA'], 'synMechWeightFactor': [1.0],
-				#'start': 500, 'interval': 1000.0/60.0, 'noise': 0.0, 'number': 60.0, 'weight': 30.0, 'delay': 0}
