@@ -1,0 +1,50 @@
+
+Reading command line arguments using syntax: python file.py [simConfig=filepath] [netParams=filepath]
+Importing simConfig from ../data/batch_2024-01-05/batch_2024-01-05_0_0_0_1_cfg.json
+Loading file ../data/batch_2024-01-05/batch_2024-01-05_0_0_0_1_cfg.json ... 
+Loading simConfig...
+Importing netParams from ../data/batch_2024-01-05/batch_2024-01-05_netParams.py
+
+Start time:  2024-01-05 14:18:13.313008
+
+Creating network of 1 cell populations on 1 hosts...
+  Number of cells on node 0: 0 
+  Done; cell creation time = 0.00 s.
+Making connections...
+  Distributing synapses based on subcellular connectivity rules...
+  Number of connections on node 0: 0 
+  Done; cell connection time = 0.00 s.
+  Number of stims on node 0: 0 
+  Done; cell stims creation time = 0.00 s.
+Recording 0 traces of 0 types on node 0
+0.0s
+
+Running simulation using NEURON for 1000.0 ms...
+0.1s
+0.2s
+0.3s
+0.4s
+0.5s
+0.6s
+0.7s
+0.8s
+0.9s
+1.0s
+  Done; run time = 0.01 s; real-time ratio: 134.37.
+
+Gathering data...
+  Done; gather time = 0.00 s.
+
+Analyzing...
+  Cells: 0
+  Connections: 0 (0.00 per cell)
+  Spikes: 0 (0.00 Hz)
+  Simulated time: 1.0 s; 1 workers
+  Run time: 0.01 s
+Saving output as ../data/batch_2024-01-05/batch_2024-01-05_0_0_0_1_data.pkl ... 
+Finished saving!
+  Done; saving time = 0.10 s.
+Plotting recorded cell traces ... trace
+  Done; plotting time = 0.03 s
+
+Total time = 0.15 s

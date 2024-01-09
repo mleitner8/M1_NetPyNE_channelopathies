@@ -47,18 +47,18 @@ cfg.intervalFolder = 'interval_saving'
 #------------------------------------------------------------------------------
 # Recording 
 #------------------------------------------------------------------------------
-allpops = 'PT5B'
+allpops = ['PT5B']
 #['IT2','PV2','SOM2','IT4','IT5A','PV5A','SOM5A','IT5B','PT5B','PV5B','SOM5B','IT6','CT6','PV6','SOM6']
 
-cfg.recordTraces = {'V_soma': {'sec':'soma', 'loc':0.5, 'var':'v'}}#,
+cfg.recordTraces = {'V_soma': {'sec':'soma', 'loc':0.5, 'var':'v'}}
 					#'V_soma_ih': {'sec':'soma', 'loc':0.5, 'var':'gbar', 'mech':'hd', 'conds':{'pop': 'PT5B'}}}
 					# 'V_apic_26': {'sec':'apic_26', 'loc':0.5, 'var':'v', 'conds':{'pop': 'PT5B'}},
 					# 'V_dend_5': {'sec':'dend_5', 'loc':0.5, 'var':'v', 'conds':{'pop': 'PT5B'}}}
 					#'I_AMPA_Adend2': {'sec':'Adend2', 'loc':0.5, 'synMech': 'AMPA', 'var': 'i'}}
 
 
-cfg.recordStim = False
-cfg.recordTime = False  
+cfg.recordStim = True
+cfg.recordTime = True
 cfg.recordStep = 0.025
 
 
@@ -81,7 +81,7 @@ cfg.compactConnFormat = 0
 #------------------------------------------------------------------------------
 with open('cells/popColors.pkl', 'rb') as fileObj: popColors = pickle.load(fileObj)['popColors']
 
-cfg.analysis['plotRaster'] = {'include': 'PT5B','timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'popRates': True, 'orderInverse': True, 'popColors': popColors, 'figSize': (12,10), 'lw': 0.3, 'markerSize':3, 'marker': '.', 'dpi': 300}
+#cfg.analysis['plotRaster'] = {'include': 'PT5B','timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'popRates': True, 'orderInverse': True, 'popColors': popColors, 'figSize': (12,10), 'lw': 0.3, 'markerSize':3, 'marker': '.', 'dpi': 300}
 
 cfg.analysis['plotTraces'] = {'include': ['PT5B'], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'figSize': (10,4), 'saveFig': True, 'showFig': False}
 #originally 'include': []
@@ -194,7 +194,7 @@ cfg.addSubConn = 1
 #------------------------------------------------------------------------------
 cfg.addIClamp = 0
 
-cfg.IClamp1 = {'pop': 'PT5B', 'sec': 'soma', 'loc': 0.5, 'start': 0, 'dur': 1000, 'amp': 0.50}
+cfg.IClamp1 = {'pop': ['PT5B'], 'sec': 'soma', 'loc': 0.5, 'start': 0, 'dur': 1000, 'amp': 0.50}
 
 #IT5B
 
@@ -204,6 +204,6 @@ cfg.IClamp1 = {'pop': 'PT5B', 'sec': 'soma', 'loc': 0.5, 'start': 0, 'dur': 1000
 cfg.addNetStim = 0
 
  			   ## pop, sec, loc, synMech, start, interval, noise, number, weight, delay 
-cfg.NetStim1 = {'pop': 'PT5B', 'ynorm':[0,1], 'sec': 'soma', 'loc': 0.5, 'synMech': ['NMDA'], 'synMechWeightFactor': [0.5, 0.5],
+cfg.NetStim1 = {'pop': ['PT5B'], 'ynorm':[0,1], 'sec': 'soma', 'loc': 0.5, 'synMech': ['NMDA'], 'synMechWeightFactor': [0.5, 0.5],
 				'start': 700, 'interval': 1000, 'noise': 0.0, 'number': 1, 'weight': 30.0, 'delay': 1}
 

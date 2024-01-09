@@ -17,7 +17,7 @@ from netpyne.batch import Batch
 #pops =  ['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2', 'SOM2'],
 def weightNormE(pops = ['PT5B'], secs =
                 None, locs = None,
-                allSegs = True, rule = 'PT5B_full', weights= (0.1, 0.2)):
+                allSegs = False, rule = 'PT5B_full', weights= (0.1, 0.2)):
 
     # Add params
     from netParams_cell import netParams
@@ -44,16 +44,7 @@ def weightNormE(pops = ['PT5B'], secs =
     params[('NetStim1', 'sec')] = secs
     params[('NetStim1', 'weight')] = weights
 
-    groupedParams = [('NetStim1', 'sec'), ('NetStim1', 'loc')] 
-
-
-    #cfg.recordTraces = {'V_soma': {'sec': 'soma', 'loc': 0.5, 'var': 'v'}}
-    #cfg.analysis['plotRaster'] = {'include': 'PT5B', 'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False,
-                                  #'popRates': True, 'orderInverse': True, 'figSize': (12, 10),
-                                  #'lw': 0.3, 'markerSize': 3, 'marker': '.', 'dpi': 300}
-
-    #cfg.analysis['plotTraces'] = {'include': 'PT5B', 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace',
-                                  #'figSize': (10, 4), 'saveFig': True, 'showFig': False}
+    groupedParams = [('NetStim1', 'sec'), ('NetStim1', 'loc')]
 
 
     initCfg = {}
@@ -68,7 +59,7 @@ def weightNormE(pops = ['PT5B'], secs =
     initCfg[('NetStim1', 'interval')] = 1000
     initCfg[('NetStim1','ynorm')] = [0.0, 1.0]
 
-    initCfg[('NetStim1', 'pop')] = 'PT5B'
+    initCfg[('NetStim1', 'pop')] = ['PT5B']
 
     initCfg[('NetStim1', 'noise')] = 0
     initCfg[('NetStim1', 'number')] = 1
@@ -105,7 +96,8 @@ def EPSPs():
 
     groupedParams = [] 
 
-    b = Batch(params=params, netParamsFile='netParams_cell.py', cfgFile='cfg_cell.py', initCfg=initCfg, groupedParams=groupedParams)
+    b = Batch(params=params, netParamsFile='netParams_cell.py', cfgFile='cfg_cell.py', initCfg=initCfg,
+              groupedParams=groupedParams)
 
     return b
 
