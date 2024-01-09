@@ -1,6 +1,6 @@
 {
     "batch": {
-        "batchLabel": "batch_2024-01-05",
+        "batchLabel": "batch_2024-01-09",
         "cfgFile": "cfg_cell.py",
         "evolCfg": {
             "fitnessFunc": "removed"
@@ -84,7 +84,7 @@
             "skip": true,
             "type": "mpi_bulletin"
         },
-        "saveFolder": "../data/batch_2024-01-05",
+        "saveFolder": "../data/batch_2024-01-09",
         "seed": null
     }
 }

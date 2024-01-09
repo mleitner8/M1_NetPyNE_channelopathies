@@ -14,10 +14,6 @@ netParams = specs.NetParams()   # object of class NetParams to store the network
 
 netParams.version = 56
 
-#try:
-    #from __main__ import cfg  # import SimConfig object with params from parent module
-#except:
-    #from cfg_cell import cfg
 from cfg_cell import cfg
 
 #------------------------------------------------------------------------------

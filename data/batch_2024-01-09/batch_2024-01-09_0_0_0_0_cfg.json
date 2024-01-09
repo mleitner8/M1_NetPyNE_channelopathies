@@ -5,16 +5,6 @@
         "EIGain": 1.0,
         "EPVGain": 1.0,
         "ESOMGain": 1.0,
-        "IClamp1": {
-            "amp": 0.5,
-            "dur": 1000,
-            "loc": 0.5,
-            "pop": [
-                "PT5B"
-            ],
-            "sec": "soma",
-            "start": 0
-        },
         "IEGain": 1.0,
         "IEdisynapticBias": null,
         "IEweights": [
@@ -80,7 +70,7 @@
                 ],
                 "oneFigPer": "trace",
                 "saveFig": true,
-                "showFig": false,
+                "showFig": true,
                 "timeRange": [
                     0,
                     1000
@@ -167,8 +157,8 @@
         "removeNa": false,
         "saveCSV": false,
         "saveCellConns": false,
-        "saveCellSecs": false,
-        "saveDat": false,
+        "saveCellSecs": true,
+        "saveDat": true,
         "saveDataInclude": [
             "simData",
             "simConfig",
@@ -177,7 +167,7 @@
         "saveDipoleCells": false,
         "saveDipolePops": false,
         "saveDpk": false,
-        "saveFolder": "../data/batch_2024-01-05",
+        "saveFolder": "../data/batch_2024-01-09",
         "saveHDF5": false,
         "saveInterval": 100,
         "saveJson": false,
@@ -186,13 +176,13 @@
         "saveMat": false,
         "savePickle": true,
         "saveTiming": false,
-        "scale": 0.1,
+        "scale": 1,
         "seeds": {
             "conn": 4321,
             "loc": 4321,
             "stim": 1234
         },
-        "simLabel": "batch_2024-01-05_0_0_0_0",
+        "simLabel": "batch_2024-01-09_0_0_0_0",
         "singleCellPops": true,
         "sizeX": 300.0,
         "sizeY": 1350.0,
