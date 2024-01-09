@@ -47,22 +47,18 @@ cfg.intervalFolder = 'interval_saving'
 #------------------------------------------------------------------------------
 # Recording 
 #------------------------------------------------------------------------------
-allpops = ['IT2','PV2','SOM2','IT4','IT5A','PV5A','SOM5A','IT5B','PT5B','PV5B','SOM5B','IT6','CT6','PV6','SOM6']
+allpops = ['PT5B']
+#['IT2','PV2','SOM2','IT4','IT5A','PV5A','SOM5A','IT5B','PT5B','PV5B','SOM5B','IT6','CT6','PV6','SOM6']
 
-cfg.recordTraces = {'V_soma': {'sec':'soma', 'loc':0.5, 'var':'v'}}#,
+cfg.recordTraces = {'V_soma': {'sec':'soma', 'loc':0.5, 'var':'v'}}
 					#'V_soma_ih': {'sec':'soma', 'loc':0.5, 'var':'gbar', 'mech':'hd', 'conds':{'pop': 'PT5B'}}}
 					# 'V_apic_26': {'sec':'apic_26', 'loc':0.5, 'var':'v', 'conds':{'pop': 'PT5B'}},
 					# 'V_dend_5': {'sec':'dend_5', 'loc':0.5, 'var':'v', 'conds':{'pop': 'PT5B'}}}
 					#'I_AMPA_Adend2': {'sec':'Adend2', 'loc':0.5, 'synMech': 'AMPA', 'var': 'i'}}
 
-cfg.recordLFP = [[150, y, 150] for y in range(200,1300,100)] # [[150, y, 150] for y in range(200,1300,100)]
 
-cfg.saveLFPPops =  False # allpops 
-
-cfg.recordDipoles = False # {'L2': ['IT2'], 'L4': ['IT4'], 'L5': ['IT5A', 'IT5B', 'PT5B']}
-
-cfg.recordStim = False
-cfg.recordTime = False  
+cfg.recordStim = True
+cfg.recordTime = True
 cfg.recordStep = 0.025
 
 
@@ -85,25 +81,15 @@ cfg.compactConnFormat = 0
 #------------------------------------------------------------------------------
 with open('cells/popColors.pkl', 'rb') as fileObj: popColors = pickle.load(fileObj)['popColors']
 
-cfg.analysis['plotRaster'] = {'include': allpops, 'orderBy': ['pop', 'y'], 'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'popRates': True, 'orderInverse': True, 'popColors': popColors, 'figSize': (12,10), 'lw': 0.3, 'markerSize':3, 'marker': '.', 'dpi': 300} 
+#cfg.analysis['plotRaster'] = {'include': 'PT5B','timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'popRates': True, 'orderInverse': True, 'popColors': popColors, 'figSize': (12,10), 'lw': 0.3, 'markerSize':3, 'marker': '.', 'dpi': 300}
 
-
-cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': list(range(len(cfg.recordLFP))), 'figSize': (12,10), 'timeRange': [1000,5000],  'saveFig': True, 'showFig':False} 
-
-
-cfg.analysis['plotTraces'] = {'include': [], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'figSize': (10,4), 'saveFig': True, 'showFig': False} 
-
+cfg.analysis['plotTraces'] = {'include': ['PT5B'], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'figSize': (10,4), 'saveFig': True, 'showFig': False}
+#originally 'include': []
 
 #------------------------------------------------------------------------------
 # Cells
 #------------------------------------------------------------------------------
-cfg.cellmod =  {'IT2': 'HH_reduced',
-				'IT4': 'HH_reduced',
-				'IT5A': 'HH_full',
-				'IT5B': 'HH_reduced',
-				'PT5B': 'HH_full',
-				'IT6': 'HH_reduced',
-				'CT6': 'HH_reduced'}
+cfg.cellmod = {'PT5B': 'HH_full'}
 
 cfg.ihModel = 'migliore'  # ih model
 cfg.ihGbar = 1.0  # multiplicative factor for ih gbar in PT cells
@@ -196,22 +182,11 @@ cfg.IFullGain = 1.0
 #------------------------------------------------------------------------------
 cfg.addSubConn = 1
 
-#------------------------------------------------------------------------------
-# Long range inputs
-#------------------------------------------------------------------------------
-cfg.addLongConn = 1 
-cfg.numCellsLong = 1000 # num of cells per population
-cfg.noiseLong = 1.0  # firing rate random noise
-cfg.delayLong = 5.0  # (ms)
-cfg.weightLong = 0.5  # corresponds to unitary connection somatic EPSP (mV)
-cfg.startLong = 0  # start at 0 ms
-cfg.ratesLong = {'TPO': [0,5], 'TVL': [0,2.5], 'S1': [0,5], 'S2': [0,5], 'cM1': [0,2.5], 'M2': [0,2.5], 'OC': [0,5]}
-
 
 ## input pulses
-cfg.addPulses = 1
-cfg.pulse = {'pop': 'None', 'start': 1000, 'end': 1200, 'rate': [0, 20], 'noise': 0.8}
-cfg.pulse2 = {'pop': 'None', 'start': 1000, 'end': 1200, 'rate': [0, 20], 'noise': 0.5, 'duration': 500}
+#cfg.addPulses = 1
+#cfg.pulse = {'pop': 'None', 'start': 1000, 'end': 1200, 'rate': [0, 20], 'noise': 0.8}
+#cfg.pulse2 = {'pop': 'None', 'start': 1000, 'end': 1200, 'rate': [0, 20], 'noise': 0.5, 'duration': 500}
 
 
 #------------------------------------------------------------------------------
@@ -219,14 +194,16 @@ cfg.pulse2 = {'pop': 'None', 'start': 1000, 'end': 1200, 'rate': [0, 20], 'noise
 #------------------------------------------------------------------------------
 cfg.addIClamp = 0
 
-cfg.IClamp1 = {'pop': 'IT5B', 'sec': 'soma', 'loc': 0.5, 'start': 0, 'dur': 1000, 'amp': 0.50}
+cfg.IClamp1 = {'pop': ['PT5B'], 'sec': 'soma', 'loc': 0.5, 'start': 0, 'dur': 1000, 'amp': 0.50}
 
+#IT5B
 
 #------------------------------------------------------------------------------
-# NetStim inputs 
+# NetStim inputs
 #------------------------------------------------------------------------------
 cfg.addNetStim = 0
 
  			   ## pop, sec, loc, synMech, start, interval, noise, number, weight, delay 
-cfg.NetStim1 = {'pop': 'IT2', 'ynorm':[0,1], 'sec': 'soma', 'loc': 0.5, 'synMech': ['AMPA'], 'synMechWeightFactor': [1.0],
-				'start': 500, 'interval': 1000.0/60.0, 'noise': 0.0, 'number': 60.0, 'weight': 30.0, 'delay': 0}
+cfg.NetStim1 = {'pop': ['PT5B'], 'ynorm':[0,1], 'sec': 'soma', 'loc': 0.5, 'synMech': ['NMDA'], 'synMechWeightFactor': [0.5, 0.5],
+				'start': 700, 'interval': 1000, 'noise': 0.0, 'number': 1, 'weight': 30.0, 'delay': 1}
+
