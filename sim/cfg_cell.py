@@ -68,8 +68,8 @@ cfg.recordStep = 0.025
 cfg.simLabel = 'v56_tune3'
 cfg.saveFolder = '../data/v56_manualTune'
 cfg.savePickle = True
-cfg.saveJson = False
-cfg.saveDat = True #added
+cfg.saveJson = True
+cfg.saveData = True #added
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams']#, 'net']
 cfg.backupCfgFile = None #['cfg.py', 'backupcfg/'] 
 cfg.gatherOnlySimData = False
@@ -181,7 +181,7 @@ cfg.IFullGain = 1.0
 #------------------------------------------------------------------------------
 # Subcellular distribution
 #------------------------------------------------------------------------------
-cfg.addSubConn = 1
+cfg.addSubConn = None
 
 
 ## input pulses

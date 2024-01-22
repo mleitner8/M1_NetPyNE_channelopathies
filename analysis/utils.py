@@ -94,7 +94,7 @@ def readBatchData(dataFolder, batchLabel, loadAll=False, saveAll=True, vars=None
         print('\nLoading single file with all data...')
         filename = '%s/%s/%s_allData.json' % (dataFolder, batchLabel, batchLabel)
         with open(filename, 'r') as fileObj:
-            dataLoad = json.load(fileObj, object_pairs_hook=OrderedDict)
+            dataLoad = json.load(fileObj, object_pairs_hook=OrderedDict) #need to fix
         params = dataLoad['params']
         data = dataLoad['data']
         return params, data

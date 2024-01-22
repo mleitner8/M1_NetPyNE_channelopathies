@@ -30,7 +30,7 @@ def weightNormE(pops = ['PT5B'], secs = None, locs = None,
             if secName not in excludeSegs:
                 if allSegs:
                     nseg = sec['geom']['nseg']
-                    for iseg in range(nseg):
+                    for iseg in list(range(nseg)):
                         secs.append(secName) 
                         locs.append((iseg+1)*(1.0/(nseg+1)))
                 else:

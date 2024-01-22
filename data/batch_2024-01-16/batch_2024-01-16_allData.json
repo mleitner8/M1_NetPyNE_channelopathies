@@ -1,0 +1,1 @@
+{"params": [{"group": true, "label": ["NetStim1", "loc"], "values": [0.5]}, {"group": true, "label": ["NetStim1", "sec"], "values": ["soma"]}, {"label": ["NetStim1", "pop"], "values": ["PT5B"]}, {"label": ["NetStim1", "weight"], "values": [0.1, 0.2]}], "data": {}}
