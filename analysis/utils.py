@@ -88,7 +88,7 @@ def compare(source_file, target_file, source_key=None, target_key=None):
     return ddiff
 
 
-def readBatchData(dataFolder, batchLabel, loadAll=True, saveAll=False, vars=None, maxCombs=None, listCombs=None):
+def readBatchData(dataFolder, batchLabel, loadAll=True, saveAll=True, vars=None, maxCombs=None, listCombs=None):
     # load from previously saved file with all data
     if loadAll:
         print('\nLoading single file with all data...')

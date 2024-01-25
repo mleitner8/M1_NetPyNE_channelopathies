@@ -19,8 +19,8 @@ def calculateEPSPs(params, data, somaLabel='soma', stimRange=[3000,4000], syn='e
     locs = [s for s in params[1]['values']]
 
     for key, d in data.items(): #changed iteritems to items
-        cellLabel = d['simData']['V_soma'].keys()[0]
-        vsoma = d['simData']['V_'+somaLabel][cellLabel]
+        cellLabel = d['data']['V_soma'].keys()[0]
+        vsoma = d['data']['V_'+somaLabel][cellLabel]
         if syn == 'exc':
             epsp = max(vsoma[stimRange[0]:stimRange[1]]) - vsoma[stimRange[0]-1] # max voltage between stim time - baseline
         elif syn == 'inh':
@@ -182,7 +182,7 @@ if __name__ == '__main__':
     '''
 
     # analyze batch E cells    
-    params, data = utils.readBatchData(dataFolder, batchLabel, loadAll=True, saveAll=False, vars=[('simData', 'V_soma')], maxCombs=None)
+    params, data = utils.readBatchData(dataFolder, batchLabel, loadAll=True, saveAll=True, vars=[('simData', 'V_soma')], maxCombs=None)
     #epsp = calculateEPSPsPops(params, data, somaLabel='soma', stimRange=[10*700,10*800], syn='exc')
     #plotEPSPs(epsp, dataFolder, batchLabel, addLegend=0)
     #plotEPSPs(epsp, dataFolder, batchLabel, addLegend=1, includeSegs=[('apic_28',0.5), ('apic_36',0.5), ('apic_49',0.5), ('apic_56',0.5)])
