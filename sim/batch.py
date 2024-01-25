@@ -15,8 +15,7 @@ from netpyne.batch import Batch
 # ----------------------------------------------------------------------------------------------
 
 #pops =  ['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2', 'SOM2'],
-def weightNormE(pops = ['PT5B'], secs =
-                None, locs = None,
+def weightNormE(pops = ['PT5B'], secs = None, locs = None,
                 allSegs = False, rule = 'PT5B_full', weights= (0.1, 0.2)):
 
     # Add params
@@ -31,7 +30,7 @@ def weightNormE(pops = ['PT5B'], secs =
             if secName not in excludeSegs:
                 if allSegs:
                     nseg = sec['geom']['nseg']
-                    for iseg in range(nseg):
+                    for iseg in list(range(nseg)):
                         secs.append(secName) 
                         locs.append((iseg+1)*(1.0/(nseg+1)))
                 else:
@@ -66,7 +65,7 @@ def weightNormE(pops = ['PT5B'], secs =
     initCfg[('NetStim1', 'delay')] = 1
     #initCfg[('GroupNetStimW1', 'pop')] = 'None'
     initCfg['addIClamp'] = 0
-    
+
     b = Batch(params=params, netParamsFile='netParams_cell.py', cfgFile='cfg_cell.py', initCfg=initCfg, groupedParams=groupedParams)
 
     return b

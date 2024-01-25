@@ -18,9 +18,9 @@ def calculateEPSPs(params, data, somaLabel='soma', stimRange=[3000,4000], syn='e
     secs = [s for s in params[0]['values']]
     locs = [s for s in params[1]['values']]
 
-    for key, d in data.iteritems():
-        cellLabel = d['simData']['V_soma'].keys()[0]
-        vsoma = d['simData']['V_'+somaLabel][cellLabel]
+    for key, d in data.items(): #changed iteritems to items
+        cellLabel = d['data']['V_soma'].keys()[0]
+        vsoma = d['data']['V_'+somaLabel][cellLabel]
         if syn == 'exc':
             epsp = max(vsoma[stimRange[0]:stimRange[1]]) - vsoma[stimRange[0]-1] # max voltage between stim time - baseline
         elif syn == 'inh':
@@ -44,7 +44,7 @@ def calculateEPSPsPops(params, data, somaLabel='soma', stimRange=[3000,4000], sy
         out[pop] = {}
         for sec,loc in zip(secs,locs): out[pop][(sec,loc)] = []
 
-    for key, d in data.iteritems():
+    for key, d in data.items(): #change iteritems to items
         cellLabel = d['V_soma'].keys()[0] # d['simData']['V_soma'].keys()[0]
         vsoma = d['V_'+somaLabel][cellLabel]  #d['simData']['V_'+somaLabel][cellLabel]
         if syn == 'exc':
@@ -61,8 +61,8 @@ def calculateEPSPsPops(params, data, somaLabel='soma', stimRange=[3000,4000], sy
 
 
 def calculateWeightNorm(params, data, epspNorm=0.5, somaLabel='soma', stimRange=[3000,4000], savePath=None):
-    epsp = calculateEPSPs(params, data, somaLabel=somaLabel, stimRange=stimRange)
 
+    epsp = calculateEPSPs(params, data, somaLabel=somaLabel, stimRange=stimRange)
     
     segs = [s for s in params[1]['values']]
     segs.sort()
@@ -169,8 +169,8 @@ if __name__ == '__main__':
     # run batch E cells
     
     dataFolder = '../data/'
-    batchLabel = 'batch_2023-11-15'   # v52_batch3'
-    loadFromFile = 1
+    batchLabel = 'batch_2024-01-16'   # v52_batch3'
+    #loadFromFile = True
 
     ''' run via batch.py
     b = batch.weightNormE(pops=['IT2', 'IT4'], rule='IT2_reduced', weight=[0.0001])
@@ -182,8 +182,12 @@ if __name__ == '__main__':
     '''
 
     # analyze batch E cells    
-    params, data = utils.readBatchData(dataFolder, batchLabel, loadAll=loadFromFile, saveAll=1-loadFromFile, vars=[('simData','V_soma')], maxCombs=None) 
-    epsp = calculateEPSPsPops(params, data, somaLabel='soma', stimRange=[10*700,10*800], syn='exc')
+    params, data = utils.readBatchData(dataFolder, batchLabel, loadAll=True, saveAll=True, vars=[('simData', 'V_soma')], maxCombs=None)
+    #epsp = calculateEPSPsPops(params, data, somaLabel='soma', stimRange=[10*700,10*800], syn='exc')
     #plotEPSPs(epsp, dataFolder, batchLabel, addLegend=0)
     #plotEPSPs(epsp, dataFolder, batchLabel, addLegend=1, includeSegs=[('apic_28',0.5), ('apic_36',0.5), ('apic_49',0.5), ('apic_56',0.5)])
-    weightNorm = calculateWeightNormPops(params, data,  somaLabel='soma', stimRange=[10*700,10*800], savePath=dataFolder+'/'+batchLabel+'/')
+    weightNorm = calculateWeightNorm(params, data, epspNorm = 0.5, somaLabel = 'soma', stimRange=[3000,4000], savePath=True)
+
+    #calculateWeightNormPops(params, data,  somaLabel='soma', stimRange=[10*700,10*800], savePath=dataFolder+'/'+batchLabel+'/')
+
+

@@ -68,11 +68,12 @@ cfg.recordStep = 0.025
 cfg.simLabel = 'v56_tune3'
 cfg.saveFolder = '../data/v56_manualTune'
 cfg.savePickle = True
-cfg.saveJson = False
+cfg.saveJson = True
+cfg.saveData = True #added
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams']#, 'net']
 cfg.backupCfgFile = None #['cfg.py', 'backupcfg/'] 
 cfg.gatherOnlySimData = False
-cfg.saveCellSecs = False
+cfg.saveCellSecs = True
 cfg.saveCellConns = False
 cfg.compactConnFormat = 0
 
@@ -83,7 +84,7 @@ with open('cells/popColors.pkl', 'rb') as fileObj: popColors = pickle.load(fileO
 
 #cfg.analysis['plotRaster'] = {'include': 'PT5B','timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'popRates': True, 'orderInverse': True, 'popColors': popColors, 'figSize': (12,10), 'lw': 0.3, 'markerSize':3, 'marker': '.', 'dpi': 300}
 
-cfg.analysis['plotTraces'] = {'include': ['PT5B'], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'figSize': (10,4), 'saveFig': True, 'showFig': False}
+cfg.analysis['plotTraces'] = {'include': ['PT5B'], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'figSize': (10,4), 'saveFig': True, 'showFig': True}
 #originally 'include': []
 
 #------------------------------------------------------------------------------
@@ -135,7 +136,7 @@ cfg.weightNorm = 1  # use weight normalization
 cfg.weightNormThreshold = 4.0  # weight normalization factor threshold
 
 cfg.addConn = False #1
-cfg.scale = 0.1 #1.0
+cfg.scale = 1 #1.0
 cfg.sizeY = 1350.0
 cfg.sizeX = 300.0
 cfg.sizeZ = 300.0
@@ -180,7 +181,7 @@ cfg.IFullGain = 1.0
 #------------------------------------------------------------------------------
 # Subcellular distribution
 #------------------------------------------------------------------------------
-cfg.addSubConn = 1
+cfg.addSubConn = None
 
 
 ## input pulses
@@ -194,7 +195,7 @@ cfg.addSubConn = 1
 #------------------------------------------------------------------------------
 cfg.addIClamp = 0
 
-cfg.IClamp1 = {'pop': ['PT5B'], 'sec': 'soma', 'loc': 0.5, 'start': 0, 'dur': 1000, 'amp': 0.50}
+#cfg.IClamp1 = {'pop': ['PT5B'], 'sec': 'soma', 'loc': 0.5, 'start': 0, 'dur': 1000, 'amp': 0.50}
 
 #IT5B
 
