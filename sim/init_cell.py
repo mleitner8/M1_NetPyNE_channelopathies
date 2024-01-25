@@ -34,11 +34,11 @@ sim.net.addStims() 							# add network stimulation
 sim.setupRecording()              			# setup variables to record for each cell (spikes, V traces, etc)
 
 # Simulation option 1: standard
-sim.runSim()                              # run parallel Neuron simulation (calling func to modify mechs)
+#sim.runSim()                              # run parallel Neuron simulation (calling func to modify mechs)
 
 # Gather/save data option 1: standard
-sim.gatherData()
+#sim.gatherData()
 
-sim.saveData()                    			# save params, cell info and sim output to file (pickle,mat,txt,etc)#
-sim.analysis.plotData()         			# plot spike raster etc
+#sim.saveData()                    			# save params, cell info and sim output to file (pickle,mat,txt,etc)#
+#sim.analysis.plotData()         			# plot spike raster etc
 

@@ -148,8 +148,8 @@ cfg.singleCellPops = 0  # Create pops with 1 single cell (to debug)
 cfg.weightNorm = 1  # use weight normalization
 cfg.weightNormThreshold = 4.0  # weight normalization factor threshold
 
-cfg.addConn = 1
-cfg.scale = 0.1 #1.0
+cfg.addConn = 0
+cfg.scale = 0.02 #1.0
 cfg.sizeY = 1350.0
 cfg.sizeX = 300.0
 cfg.sizeZ = 300.0
@@ -194,12 +194,12 @@ cfg.IFullGain = 1.0
 #------------------------------------------------------------------------------
 # Subcellular distribution
 #------------------------------------------------------------------------------
-cfg.addSubConn = 1
+cfg.addSubConn = 0
 
 #------------------------------------------------------------------------------
 # Long range inputs
 #------------------------------------------------------------------------------
-cfg.addLongConn = 1 
+cfg.addLongConn = 0
 cfg.numCellsLong = 1000 # num of cells per population
 cfg.noiseLong = 1.0  # firing rate random noise
 cfg.delayLong = 5.0  # (ms)
