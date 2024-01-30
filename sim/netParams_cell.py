@@ -14,7 +14,10 @@ netParams = specs.NetParams()   # object of class NetParams to store the network
 
 netParams.version = 56
 
-from cfg_cell import cfg
+try:
+    from __main__ import cfg
+except:
+    from cfg_cell import cfg
 
 #------------------------------------------------------------------------------
 #
@@ -62,7 +65,8 @@ netParams.correctBorder = False
 
 #------------------------------------------------------------------------------
 ## Load cell rules previously saved using netpyne format
-cellParamLabels = ['PT5B_full'] #'NGF_simple', 'VIP_reduced'] # list of cell rules to load from file
+cellParamLabels = ['IT2_reduced', 'IT4_reduced', 'IT5A_reduced', 'IT5B_reduced', 'PT5B_reduced',
+    'IT6_reduced', 'CT6_reduced', 'PV_simple', 'SOM_simple', 'IT5A_full']# ['PT5B_full'] #'NGF_simple', 'VIP_reduced'] # list of cell rules to load from file
 loadCellParams = cellParamLabels
 saveCellParams = False #True
 
