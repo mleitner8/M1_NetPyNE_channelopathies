@@ -64,7 +64,7 @@ def weightNormE(pops = ['PT5B'], secs = None, locs = None,
     initCfg[('NetStim1', 'number')] = 1
     initCfg[('NetStim1', 'delay')] = 1
     #initCfg[('GroupNetStimW1', 'pop')] = 'None'
-    initCfg['addIClamp'] = 0
+
 
     b = Batch(params=params, netParamsFile='netParams_cell.py', cfgFile='cfg_cell.py', initCfg=initCfg, groupedParams=groupedParams)
 
