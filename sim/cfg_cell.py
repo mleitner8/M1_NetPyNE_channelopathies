@@ -70,7 +70,7 @@ cfg.saveFolder = '../data/v56_manualTune'
 cfg.savePickle = True
 cfg.saveJson = True
 cfg.saveData = True #added
-cfg.saveDataInclude = ['simData', 'simConfig', 'netParams']#, 'net']
+cfg.saveDataInclude = ['simData', 'simConfig', 'netParams']  #'net'
 cfg.backupCfgFile = None #['cfg.py', 'backupcfg/'] 
 cfg.gatherOnlySimData = False
 cfg.saveCellSecs = True
@@ -193,7 +193,7 @@ cfg.addSubConn = None
 #------------------------------------------------------------------------------
 # Current inputs 
 #------------------------------------------------------------------------------
-#cfg.addIClamp = 0
+cfg.addIClamp = None
 
 #cfg.IClamp1 = {'pop': ['PT5B'], 'sec': 'soma', 'loc': 0.5, 'start': 0, 'dur': 1000, 'amp': 0.50}
 
