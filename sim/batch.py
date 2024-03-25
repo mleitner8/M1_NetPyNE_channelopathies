@@ -15,8 +15,8 @@ from netpyne.batch import Batch
 # ----------------------------------------------------------------------------------------------
 
 #pops =  ['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2', 'SOM2'],
-def weightNormE(pops = ['PT5B'], secs = ['soma'], locs = [0.5],
-                allSegs = False, rule = 'PT5B_full', weights = (0.1, 0.2)):
+def weightNormE(pops = ['PT5B'], secs = None, locs = None,
+                allSegs = True, rule = 'PT5B_full', weights =list(np.arange(0.01, 0.2, 0.01)/100.0)):
 
     # Add params
     from netParams_cell import netParams
@@ -64,7 +64,7 @@ def weightNormE(pops = ['PT5B'], secs = ['soma'], locs = [0.5],
     initCfg[('NetStim1', 'number')] = 1
     initCfg[('NetStim1', 'delay')] = 1
     #initCfg[('GroupNetStimW1', 'pop')] = 'None'
-
+    initCfg['addIClamp'] = 0
 
     b = Batch(params=params, netParamsFile='netParams_cell.py', cfgFile='cfg_cell.py', initCfg=initCfg, groupedParams=groupedParams)
 
@@ -494,16 +494,18 @@ def v56_batch5b():
 # ----------------------------------------------------------------------------------------------
 def setRunCfg(b, type='mpi_bulletin', nodes=1, coresPerNode=8):
     if type=='mpi_bulletin':
-        b.runCfg = {'type': 'mpi_bulletin', 
+        b.runCfg = {'type': 'mpi_bulletin',
             'script': 'init_cell.py',
-            'skip': True}
+            'skip': False,
+            'skipCustom': '_data.json'}
 
     elif type=='mpi_direct':
         b.runCfg = {'type': 'mpi_direct',
-            'cores': 4,
+            'cores': 20,
             'script': 'init_cell.py',
-            'mpiCommand': 'mpirun',
-            'skip': True}
+            'mpiCommand': 'mpiexec',
+            'skip': True,
+            'skipCustom': '_data.pkl'}
 
     elif type=='hpc_torque':
         b.runCfg = {'type': 'hpc_torque',
@@ -556,6 +558,20 @@ def setRunCfg(b, type='mpi_bulletin', nodes=1, coresPerNode=8):
             'script': 'init.py', 
             'mpiCommand': 'mpirun', # comet='ibrun', bridges='mpirun'
             'skip': True}
+        
+    elif type=='hpc_sge':
+        b.runCfg = {'type': 'hpc_sge',
+                    'jobName': 'my_batch',
+                    'cores': 1,
+                    'log': '/ddn/rbarav/DuraBernalProjects/Epilepsy_Channelopathies/M1_NetPyNE_channelopathies/sim/qsub/mybatch2.log',
+                    'mpiCommand': 'mpiexec',
+                    'vmem': '256G',
+                    'walltime': "20:00:00",
+                    'script': 'init_cell.py',
+                    'queueName': 'cpu.q',
+                    'skip': False,
+                    'skipCustom': '_data.json'}
+        
 
 
 # ----------------------------------------------------------------------------------------------
@@ -579,13 +595,11 @@ if __name__ == '__main__':
     # Figure 6 (VL vs Ih Quiet+Move)
     # b = v56_batch5b()
 
-    #b = weightNormE(pops = ['PT5B'], locs = None,
-               # allSegs = True, rule = 'PT5B_full', weights =list(np.arange(0.01, 0.2, 0.01)/100.0)) #full weights and segs
+    b = weightNormE(pops = ['PT5B'], locs = None,
+                allSegs = True, rule = 'PT5B_full', weights =list(np.arange(0.01, 0.2, 0.01)/100.0))
 
-    b = weightNormE(pops = ['PT5B'], secs = ['soma'], locs = [0.5],
-                allSegs = False, rule = 'PT5B_full', weights= (0.1, 0.2)) #for debugging
-
+    b.batchLabel = 'wscale'
     b.saveFolder = '../data/'+b.batchLabel
     b.method = 'grid'  # evol
-    setRunCfg(b, 'mpi_bulletin', nodes = 1, coresPerNode = 60)  # cores = nodes * 8
+    setRunCfg(b, 'mpi_bulletin', nodes = 1, coresPerNode = 8)  # cores = nodes * 8
     b.run() # run batch 
