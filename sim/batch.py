@@ -15,8 +15,8 @@ from netpyne.batch import Batch
 # ----------------------------------------------------------------------------------------------
 
 #pops =  ['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6', 'PV2', 'SOM2'],
-def weightNormE(pops = ['PT5B'], secs = ['soma'], locs = [0.5],
-                allSegs = False, rule = 'PT5B_full', weights = (0.1, 0.2)):
+def weightNormE(pops = ['PT5B'], secs = None, locs = None,
+                allSegs = True, rule = 'PT5B_full', weights =list(np.arange(0.01, 0.2, 0.01)/100.0)):
 
     # Add params
     from netParams_cell import netParams
@@ -64,7 +64,7 @@ def weightNormE(pops = ['PT5B'], secs = ['soma'], locs = [0.5],
     initCfg[('NetStim1', 'number')] = 1
     initCfg[('NetStim1', 'delay')] = 1
     #initCfg[('GroupNetStimW1', 'pop')] = 'None'
-
+    initCfg['addIClamp'] = 0
 
     b = Batch(params=params, netParamsFile='netParams_cell.py', cfgFile='cfg_cell.py', initCfg=initCfg, groupedParams=groupedParams)
 
@@ -133,6 +133,247 @@ def fIcurve():
 
     return b
 
+
+# ----------------------------------------------------------------------------------------------
+# Custom
+# ----------------------------------------------------------------------------------------------
+def custom():
+    params = specs.ODict()
+    # # long-range inputs
+    # params[('weightLong', 'TPO')] = [0.25, 0.5, 0.75]
+    # params[('weightLong', 'TVL')] = [0.25, 0.5, 0.75]
+    # params[('weightLong', 'S1')] =  [0.25, 0.5, 0.75]
+    # params[('weightLong', 'S2')] =  [0.25, 0.5, 0.75]
+    # params[('weightLong', 'cM1')] = [0.25, 0.5, 0.75]
+    # params[('weightLong', 'M2')] =  [0.25, 0.5, 0.75]
+    # params[('weightLong', 'OC')] =  [0.25, 0.5, 0.75]
+
+    # EEgain
+    params['EEGain'] = [1.0]
+
+    # IEgain
+    ## L2/3+4
+    params[('IEweights', 0)] = [1.0]
+    ## L5
+    params[('IEweights', 1)] = [1.0]  # [0.8, 1.0]
+    ## L6
+    params[('IEweights', 2)] = [1.0]  # [0.8, 1.0]
+
+    # IIGain
+    params['IIGain'] = [1.0]
+
+    groupedParams = [('weightLong', 'TPO'),
+                     ('weightLong', 'TVL'),
+                     ('weightLong', 'S1'),
+                     ('weightLong', 'S2'),
+                     ('weightLong', 'cM1'),
+                     ('weightLong', 'M2'),
+                     ('weightLong', 'OC')]
+
+    # --------------------------------------------------------
+    # initial config
+    initCfg = {}
+    initCfg['duration'] = 1000
+    initCfg['printPopAvgRates'] = [500, 1000]
+    initCfg['dt'] = 0.025
+
+    initCfg['scaleDensity'] = 1.0
+
+    # cell params
+    initCfg['ihGbar'] = 0.75  # ih (for quiet/sponti condition)
+    initCfg['ihModel'] = 'migliore'  # ih model
+    initCfg['ihGbarBasal'] = 1.0  # multiplicative factor for ih gbar in PT cells
+    initCfg['ihlkc'] = 0.2  # ih leak param (used in Migliore)
+    initCfg['ihLkcBasal'] = 1.0  # multiplicative factor for ih lk in PT cells
+    initCfg['ihLkcBelowSoma'] = 0.01  # multiplicative factor for ih lk in PT cells
+    initCfg['ihlke'] = -86  # ih leak param (used in Migliore)
+    initCfg['ihSlope'] = 28  # ih leak param (used in Migliore)
+
+    initCfg['somaNa'] = 5.0  # somatic Na conduct
+    initCfg['dendNa'] = 0.3  # dendritic Na conduct (reduced to avoid dend spikes)
+    initCfg['axonNa'] = 7  # axon Na conduct (increased to compensate)
+    initCfg['axonRa'] = 0.005
+    initCfg['gpas'] = 0.5
+    initCfg['epas'] = 0.9
+
+    # long-range input params
+    initCfg['numCellsLong'] = 1000
+    initCfg[('pulse', 'pop')] = 'None'
+    initCfg[('pulse', 'start')] = 1000.0
+    initCfg[('pulse', 'end')] = 1100.0
+    initCfg[('pulse', 'noise')] = 0.8
+
+    # conn params
+    initCfg['IEdisynapticBias'] = None
+
+    initCfg['weightNormThreshold'] = 4.0
+    initCfg['IEGain'] = 1.0
+    initCfg['IPTGain'] = 1.0
+    initCfg['IIweights'] = [1.0, 1.0, 1.0]
+
+    # plotting and saving params
+    initCfg[('analysis', 'plotRaster', 'timeRange')] = initCfg['printPopAvgRates']
+    initCfg[('analysis', 'plotTraces', 'timeRange')] = initCfg['printPopAvgRates']
+
+    initCfg[('analysis', 'plotTraces', 'oneFigPer')] = 'trace'
+
+    initCfg['saveCellSecs'] = False
+    initCfg['saveCellConns'] = False
+
+    b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py', initCfg=initCfg,
+              groupedParams=groupedParams)
+    b.method = 'grid'
+
+    return b
+
+
+# ----------------------------------------------------------------------------------------------
+# Evol
+# ----------------------------------------------------------------------------------------------
+def evolRates():
+    # --------------------------------------------------------
+    # parameters
+    params = specs.ODict()
+
+    # long-range inputs
+    params[('weightLong', 'TPO')] = [0.25, 0.75]
+    params[('weightLong', 'TVL')] = [0.25, 0.75]
+    params[('weightLong', 'S1')] = [0.25, 0.75]
+    params[('weightLong', 'S2')] = [0.25, 0.75]
+    params[('weightLong', 'cM1')] = [0.25, 0.75]
+    params[('weightLong', 'M2')] = [0.25, 0.75]
+    params[('weightLong', 'OC')] = [0.25, 0.75]
+
+    # EEgain
+    params['EEGain'] = [0.5, 1.5]
+
+    # IEgain
+    ## L2/3+4
+    params[('IEweights', 0)] = [0.5, 1.5]
+    ## L5
+    params[('IEweights', 1)] = [0.5, 1.5]  # [0.8, 1.0]
+    ## L6
+    params[('IEweights', 2)] = [0.5, 1.5]  # [0.8, 1.0]
+
+    # IIGain
+    ## L2/3+4
+    params[('IIweights', 0)] = [0.5, 1.5]
+    ## L5
+    params[('IIweights', 1)] = [0.5, 1.5]  # [0.8, 1.0]
+    ## L6
+    params[('IIweights', 2)] = [0.5, 1.5]  # [0.8, 1.0]
+
+    groupedParams = []
+
+    # --------------------------------------------------------
+    # initial config
+    initCfg = {}
+    initCfg['duration'] = 1500
+    initCfg['printPopAvgRates'] = [500, 1500]
+    initCfg['dt'] = 0.025
+
+    initCfg['scaleDensity'] = 1.0
+
+    # cell params
+    initCfg['ihGbar'] = 0.75  # ih (for quiet/sponti condition)
+    initCfg['ihModel'] = 'migliore'  # ih model
+    initCfg['ihGbarBasal'] = 1.0  # multiplicative factor for ih gbar in PT cells
+    initCfg['ihlkc'] = 0.2  # ih leak param (used in Migliore)
+    initCfg['ihLkcBasal'] = 1.0  # multiplicative factor for ih lk in PT cells
+    initCfg['ihLkcBelowSoma'] = 0.01  # multiplicative factor for ih lk in PT cells
+    initCfg['ihlke'] = -86  # ih leak param (used in Migliore)
+    initCfg['ihSlope'] = 28  # ih leak param (used in Migliore)
+
+    initCfg['somaNa'] = 5.0  # somatic Na conduct
+    initCfg['dendNa'] = 0.3  # dendritic Na conduct (reduced to avoid dend spikes)
+    initCfg['axonNa'] = 7  # axon Na conduct (increased to compensate)
+    initCfg['axonRa'] = 0.005
+    initCfg['gpas'] = 0.5
+    initCfg['epas'] = 0.9
+
+    # long-range input params
+    initCfg['numCellsLong'] = 1000
+    initCfg[('pulse', 'pop')] = 'None'
+    initCfg[('pulse', 'start')] = 1000.0
+    initCfg[('pulse', 'end')] = 1100.0
+    initCfg[('pulse', 'noise')] = 0.8
+
+    # conn params
+    initCfg['IEdisynapticBias'] = None
+
+    initCfg['weightNormThreshold'] = 4.0
+    initCfg['IEGain'] = 1.0
+    initCfg['IIGain'] = 1.0
+    initCfg['IPTGain'] = 1.0
+
+    # plotting and saving params
+    initCfg[('analysis', 'plotRaster', 'timeRange')] = initCfg['printPopAvgRates']
+    initCfg[('analysis', 'plotTraces', 'timeRange')] = initCfg['printPopAvgRates']
+
+    initCfg['saveCellSecs'] = False
+    initCfg['saveCellConns'] = False
+
+    # --------------------------------------------------------
+    # fitness function
+    fitnessFuncArgs = {}
+    pops = {}
+
+    ## Exc pops
+    Epops = ['IT2', 'IT4', 'IT5A', 'IT5B', 'PT5B', 'IT6', 'CT6']
+
+    Etune = {'target': 5, 'width': 5, 'min': 0.5}
+    for pop in Epops:
+        pops[pop] = Etune
+
+    ## Inh pops
+    Ipops = ['PV2', 'SOM2',
+             'PV5A', 'SOM5A',
+             'PV5B', 'SOM5B',
+             'PV6', 'SOM6']
+
+    Itune = {'target': 10, 'width': 15, 'min': 0.25}
+    for pop in Ipops:
+        pops[pop] = Itune
+
+    fitnessFuncArgs['pops'] = pops
+    fitnessFuncArgs['maxFitness'] = 1000
+
+    def fitnessFunc(simData, **kwargs):
+        import numpy as np
+        pops = kwargs['pops']
+        maxFitness = kwargs['maxFitness']
+        popFitness = [min(np.exp(abs(v['target'] - simData['popRates'][k]) / v['width']), maxFitness)
+                      if simData['popRates'][k] > v['min'] else maxFitness for k, v in pops.items()]
+        fitness = np.mean(popFitness)
+
+        popInfo = '; '.join(
+            ['%s rate=%.1f fit=%1.f' % (p, simData['popRates'][p], popFitness[i]) for i, p in enumerate(pops)])
+        print('  ' + popInfo)
+        return fitness
+
+    # from IPython import embed; embed()
+
+    b = Batch(params=params, groupedParams=groupedParams, initCfg=initCfg)
+    b.method = 'evol'
+
+    # Set evol alg configuration
+    b.evolCfg = {
+        'evolAlgorithm': 'custom',
+        'fitnessFunc': fitnessFunc,  # fitness expression (should read simData)
+        'fitnessFuncArgs': fitnessFuncArgs,
+        'pop_size': 15,
+        'num_elites': 2,
+        'mutation_rate': 0.5,
+        'crossover': 0.5,
+        'maximize': False,  # maximize fitness function?
+        'max_generations': 100,
+        'time_sleep': 3 * 300,  # 5min wait this time before checking again if sim is completed (for each generation)
+        'maxiter_wait': 3 * 64,  # (5h20) max number of times to check if sim is completed (for each generation)
+        'defaultFitness': 1000,  # set fitness value in case simulation time is over
+        'scancelUser': 'ext_romanbaravalle_gmail_com'
+    }
+
+    return b
 
 
 # ----------------------------------------------------------------------------------------------
@@ -494,16 +735,18 @@ def v56_batch5b():
 # ----------------------------------------------------------------------------------------------
 def setRunCfg(b, type='mpi_bulletin', nodes=1, coresPerNode=8):
     if type=='mpi_bulletin':
-        b.runCfg = {'type': 'mpi_bulletin', 
+        b.runCfg = {'type': 'mpi_bulletin',
             'script': 'init_cell.py',
-            'skip': True}
+            'skip': False,
+            'skipCustom': '_data.json'}
 
     elif type=='mpi_direct':
         b.runCfg = {'type': 'mpi_direct',
-            'cores': 4,
+            'cores': 20,
             'script': 'init_cell.py',
-            'mpiCommand': 'mpirun',
-            'skip': True}
+            'mpiCommand': 'mpiexec',
+            'skip': True,
+            'skipCustom': '_data.pkl'}
 
     elif type=='hpc_torque':
         b.runCfg = {'type': 'hpc_torque',
@@ -556,6 +799,20 @@ def setRunCfg(b, type='mpi_bulletin', nodes=1, coresPerNode=8):
             'script': 'init.py', 
             'mpiCommand': 'mpirun', # comet='ibrun', bridges='mpirun'
             'skip': True}
+        
+    elif type=='hpc_sge':
+        b.runCfg = {'type': 'hpc_sge',
+                    'jobName': 'my_batch',
+                    'cores': 1,
+                    'log': '/ddn/rbarav/DuraBernalProjects/Epilepsy_Channelopathies/M1_NetPyNE_channelopathies/sim/qsub/mybatch2.log',
+                    'mpiCommand': 'mpiexec',
+                    'vmem': '256G',
+                    'walltime': "20:00:00",
+                    'script': 'init_cell.py',
+                    'queueName': 'cpu.q',
+                    'skip': False,
+                    'skipCustom': '_data.json'}
+        
 
 
 # ----------------------------------------------------------------------------------------------
@@ -580,12 +837,11 @@ if __name__ == '__main__':
     # b = v56_batch5b()
 
     #b = weightNormE(pops = ['PT5B'], locs = None,
-               # allSegs = True, rule = 'PT5B_full', weights =list(np.arange(0.01, 0.2, 0.01)/100.0)) #full weights and segs
+#                allSegs = True, rule = 'PT5B_full', weights =list(np.arange(0.01, 0.2, 0.01)/100.0))
 
-    b = weightNormE(pops = ['PT5B'], secs = ['soma'], locs = [0.5],
-                allSegs = False, rule = 'PT5B_full', weights= (0.1, 0.2)) #for debugging
-
+    b = evolRates()
+    b.batchLabel = 'evolRates' #'wscale2'
     b.saveFolder = '../data/'+b.batchLabel
-    b.method = 'grid'  # evol
-    setRunCfg(b, 'mpi_bulletin', nodes = 1, coresPerNode = 60)  # cores = nodes * 8
+    #b.method = 'grid'  # evol
+    setRunCfg(b, 'hpc_sge')  # cores = nodes * 8
     b.run() # run batch 
