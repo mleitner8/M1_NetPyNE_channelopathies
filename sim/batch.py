@@ -836,12 +836,13 @@ if __name__ == '__main__':
     # Figure 6 (VL vs Ih Quiet+Move)
     # b = v56_batch5b()
 
-    #b = weightNormE(pops = ['PT5B'], locs = None,
-#                allSegs = True, rule = 'PT5B_full', weights =list(np.arange(0.01, 0.2, 0.01)/100.0))
 
-    b = evolRates()
-    b.batchLabel = 'evolRates' #'wscale2'
+    b = weightNormE(pops = ['PT5B'], locs = None,
+                allSegs = True, rule = 'PT5B_full', weights =list(np.arange(0.01, 0.2, 0.01)/100.0))
+
+    b.batchLabel = 'wscale'
     b.saveFolder = '../data/'+b.batchLabel
-    #b.method = 'grid'  # evol
-    setRunCfg(b, 'hpc_sge')  # cores = nodes * 8
+    b.method = 'grid'  # evol
+    setRunCfg(b, 'mpi_bulletin', nodes = 1, coresPerNode = 8)  # cores = nodes * 8
+    
     b.run() # run batch 
