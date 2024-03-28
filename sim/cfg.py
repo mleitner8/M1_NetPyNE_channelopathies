@@ -25,7 +25,7 @@ cfg.duration = 1*1e3
 cfg.dt = 0.025
 cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -80}  
-cfg.verbose = 0
+cfg.verbose = True
 cfg.createNEURONObj = 1
 cfg.createPyStruct = 1
 cfg.connRandomSecFromList = False  # set to false for reproducibility 
@@ -38,7 +38,7 @@ cfg.oneSynPerNetcon = True  # only affects conns not in subconnParams; produces 
 cfg.includeParamsLabel = False #True # needed for modify synMech False
 cfg.printPopAvgRates = [1000., 5000.]
 
-cfg.checkErrors = False
+cfg.checkErrors = True
 
 cfg.saveInterval = 100 # define how often the data is saved, this can be used with interval run if you want to update the weights more often than you save
 cfg.intervalFolder = 'interval_saving'
@@ -61,8 +61,8 @@ cfg.saveLFPPops =  False # allpops
 
 cfg.recordDipoles = False # {'L2': ['IT2'], 'L4': ['IT4'], 'L5': ['IT5A', 'IT5B', 'PT5B']}
 
-cfg.recordStim = False
-cfg.recordTime = False  
+cfg.recordStim = True
+cfg.recordTime = True  
 cfg.recordStep = 0.025
 
 
@@ -72,7 +72,7 @@ cfg.recordStep = 0.025
 cfg.simLabel = 'v56_tune3'
 cfg.saveFolder = '../data/v56_manualTune'
 cfg.savePickle = True
-cfg.saveJson = False
+cfg.saveJson = True
 cfg.saveDataInclude = ['simData', 'simConfig', 'netParams']#, 'net']
 cfg.backupCfgFile = None #['cfg.py', 'backupcfg/'] 
 cfg.gatherOnlySimData = False
@@ -91,7 +91,7 @@ cfg.analysis['plotRaster'] = {'include': allpops, 'orderBy': ['pop', 'y'], 'time
 cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': list(range(len(cfg.recordLFP))), 'figSize': (12,10), 'timeRange': [1000,5000],  'saveFig': True, 'showFig':False} 
 
 
-cfg.analysis['plotTraces'] = {'include': [], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'figSize': (10,4), 'saveFig': True, 'showFig': False} 
+cfg.analysis['plotTraces'] = {'include': allpops, 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'figSize': (10,4), 'saveFig': True, 'showFig': False} 
 
 
 #------------------------------------------------------------------------------
@@ -203,7 +203,9 @@ cfg.addLongConn = 1
 cfg.numCellsLong = 1000 # num of cells per population
 cfg.noiseLong = 1.0  # firing rate random noise
 cfg.delayLong = 5.0  # (ms)
-cfg.weightLong = 0.5  # corresponds to unitary connection somatic EPSP (mV)
+factor = 1
+cfg.weightLong = {'TPO': 0.5*factor, 'TVL': 0.5*factor, 'S1': 0.5*factor, 'S2': 0.5*factor, 'cM1': 0.5*factor, 'M2': 0.5*factor, 'OC': 0.5*factor}
+#cfg.weightLong = 0.5  # corresponds to unitary connection somatic EPSP (mV)
 cfg.startLong = 0  # start at 0 ms
 cfg.ratesLong = {'TPO': [0,5], 'TVL': [0,2.5], 'S1': [0,5], 'S2': [0,5], 'cM1': [0,2.5], 'M2': [0,2.5], 'OC': [0,5]}
 

@@ -15,7 +15,7 @@ netParams = specs.NetParams()   # object of class NetParams to store the network
 netParams.version = 56
 
 try:
-    from __main__ import cfg
+    from __main__ import cfg  # import SimConfig object with params from parent module
 except:
     from cfg_cell import cfg
 
@@ -23,10 +23,6 @@ except:
 #
 # NETWORK PARAMETERS
 #
-#------------------------------------------------------------------------------
-
-#------------------------------------------------------------------------------
-# General network parameters
 #------------------------------------------------------------------------------
 netParams.scale = cfg.scale # Scale factor for number of cells
 netParams.sizeX = cfg.sizeX # x-dimension (horizontal length) size in um
@@ -65,20 +61,9 @@ netParams.correctBorder = False
 
 #------------------------------------------------------------------------------
 ## Load cell rules previously saved using netpyne format
-cellParamLabels = ['IT2_reduced', 'IT4_reduced', 'IT5A_reduced', 'IT5B_reduced', 'PT5B_reduced',
-    'IT6_reduced', 'CT6_reduced', 'PV_simple', 'SOM_simple', 'IT5A_full']# ['PT5B_full'] #'NGF_simple', 'VIP_reduced'] # list of cell rules to load from file
+cellParamLabels = ['PT5B_full'] #'NGF_simple', 'VIP_reduced'] # list of cell rules to load from file
 loadCellParams = cellParamLabels
 saveCellParams = False #True
-
-for ruleLabel in loadCellParams:
-    netParams.loadCellParamsRule(label=ruleLabel, fileName='cells/'+ruleLabel+'_cellParams.pkl')
-    
-    # Adapt K gbar
-    if ruleLabel in ['IT2_reduced', 'IT4_reduced', 'IT5A_reduced', 'IT5B_reduced', 'IT6_reduced', 'CT6_reduced', 'IT5A_full']:
-        cellRule = netParams.cellParams[ruleLabel]
-        for secName in cellRule['secs']:
-            for kmech in [k for k in cellRule['secs'][secName]['mechs'].keys() if k.startswith('k') and k!='kBK']:
-                cellRule['secs'][secName]['mechs'][kmech]['gbar'] *= cfg.KgbarFactor 
 
 #------------------------------------------------------------------------------
 # Specification of cell rules not previously loaded
@@ -91,29 +76,30 @@ for ruleLabel in loadCellParams:
 ## PT5B full cell model params (700+ comps)
 #UC Davis PT Cell
 
-if 'PT5B_full' not in loadCellParams:
-    ihMod2str = {'harnett': 1, 'kole': 2, 'migliore': 3}
+ihMod2str = {'harnett': 1, 'kole': 2, 'migliore': 3}
 
-    netParams.loadCellParams('PT5B_full', 'Na1216TF.pkl')
-    netParams.renameCellParamsSec(label='PT5B_full', oldSec ='soma_0', newSec ='soma')
-    cellRule = netParams.cellParams['PT5B_full']
+netParams.loadCellParams('PT5B_full', 'Na1216TF.pkl')
+netParams.renameCellParamsSec(label='PT5B_full', oldSec ='soma_0', newSec ='soma')
+cellRule = netParams.cellParams['PT5B_full']
 
-    cellRule['secs']['axon_0']['geom']['pt3d'] = [[1e30, 1e30, 1e30]]
-    cellRule['secs']['axon_1']['geom']['pt3d'] = [[1e30, 1e30, 1e30]]
+cellRule['secs']['axon_0']['geom']['pt3d'] = [[1e30, 1e30, 1e30, 1e30]] #stupid workaround that should be fixed in NetPyNE
+cellRule['secs']['axon_1']['geom']['pt3d'] = [[1e30, 1e30, 1e30, 1e30]] #breaks in simulations btw.
 
-    nonSpiny = ['apic_0', 'apic_1']
-    netParams.addCellParamsSecList(label='PT5B_full', secListName='perisom', somaDist=[0, 50])  # sections within 50 um of soma
-    netParams.addCellParamsSecList(label='PT5B_full', secListName='below_soma', somaDistY=[-600, 0])  # sections within 0-300 um of soma
-    for sec in nonSpiny: # N.B. apic_1 not in `perisom` . `apic_0` and `apic_114` are
-        if sec in cellRule['secLists']['perisom']: # fixed logic
-            cellRule['secLists']['perisom'].remove(sec)
-    cellRule['secLists']['alldend'] = [sec for sec in cellRule.secs if ('dend' in sec or 'apic' in sec)] # basal+apical
-    cellRule['secLists']['apicdend'] = [sec for sec in cellRule.secs if ('apic' in sec)] # apical
-    cellRule['secLists']['spiny'] = [sec for sec in cellRule['secLists']['alldend'] if sec not in nonSpiny]
-
+nonSpiny = ['apic_0', 'apic_1']
+netParams.addCellParamsSecList(label='PT5B_full', secListName='perisom', somaDist=[0, 50])  # sections within 50 um of soma
+netParams.addCellParamsSecList(label='PT5B_full', secListName='below_soma', somaDistY=[-600, 0])  # sections within 0-300 um of soma
+for sec in nonSpiny: # N.B. apic_1 not in `perisom` . `apic_0` and `apic_114` are
+    if sec in cellRule['secLists']['perisom']: # fixed logic
+        cellRule['secLists']['perisom'].remove(sec)
+cellRule['secLists']['alldend'] = [sec for sec in cellRule.secs if ('dend' in sec or 'apic' in sec)] # basal+apical
+cellRule['secLists']['apicdend'] = [sec for sec in cellRule.secs if ('apic' in sec)] # apical
+cellRule['secLists']['spiny'] = [sec for sec in cellRule['secLists']['alldend'] if sec not in nonSpiny]
+netParams.cellParams['PT5B_full']['conds'] = {'cellModel': 'HH_full', 'cellType': 'PT'}
 #     netParams.addCellParamsWeightNorm('PT5B_full', 'conn/PT5B_full_weightNorm.pkl', threshold=cfg.weightNormThreshold)  # load weight norm
-    #if saveCellParams: netParams.saveCellParamsRule(label='PT5B_full', fileName='cells/PT5B_full_cellParams.pkl')
-
+#     if saveCellParams: netParams.saveCellParamsRule(label='PT5B_full', fileName='cells/PT5B_full_cellParams.pkl')
+del netParams.cellParams['PT5B_full']['secs']['soma']['pointps'] #somehow there is an 'iclamp' attached to this
+del netParams.cellParams['PT5B_full']['secs']['axon_0']
+del netParams.cellParams['PT5B_full']['secs']['axon_1']
 
 #------------------------------------------------------------------------------
 # Population parameters
@@ -125,12 +111,10 @@ with open('cells/cellDensity.pkl', 'rb') as fileObj: density = pickle.load(fileO
 
 ## Local populations
 
-
 netParams.popParams['PT5B'] = {'cellModel': cfg.cellmod['PT5B'], 'cellType': 'PT', 'ynormRange': layer['5B'], 'density': 0.5*density[('M1','E')][3]}
 
 if cfg.singleCellPops:
     for pop in netParams.popParams.values(): pop['numCells'] = 1
-
 #------------------------------------------------------------------------------
 # Synaptic mechanism parameters
 #------------------------------------------------------------------------------
@@ -192,7 +176,7 @@ if cfg.addNetStim:
         # for i, syn in enumerate(synMech):
         netParams.stimTargetParams[key+'_'+pop] =  {
             'source': key, 
-            'conds': {'pop': pop, 'ynorm': ynorm},
+            'conds': {'pop': pop},
             'sec': sec, 
             'loc': loc,
             'synMech': synMech,
