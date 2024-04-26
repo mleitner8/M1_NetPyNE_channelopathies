@@ -50,8 +50,7 @@ cfg.intervalFolder = 'interval_saving'
 allpops = ['PT5B']
 #['IT2','PV2','SOM2','IT4','IT5A','PV5A','SOM5A','IT5B','PT5B','PV5B','SOM5B','IT6','CT6','PV6','SOM6']
 
-cfg.recordTraces = {'V_soma': {'sec':'soma', 'loc':0.5, 'var':'v'}, 
-'V_apic_110': {'sec':'apic_110', 'loc':0.5, 'var':'v'}}
+cfg.recordTraces = {'V_soma': {'sec':'soma', 'loc':0.5, 'var':'v'}}
 					#'V_soma_ih': {'sec':'soma', 'loc':0.5, 'var':'gbar', 'mech':'hd', 'conds':{'pop': 'PT5B'}}}
 					# 'V_apic_110': {'sec':'apic_26', 'loc':0.5, 'var':'v', 'conds':{'pop': 'PT5B'}},
 					# 'V_dend_5': {'sec':'dend_5', 'loc':0.5, 'var':'v', 'conds':{'pop': 'PT5B'}}}

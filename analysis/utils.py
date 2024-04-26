@@ -88,7 +88,7 @@ def compare(source_file, target_file, source_key=None, target_key=None):
     return ddiff
 
 
-def readBatchData(dataFolder, batchLabel, loadAll=True, saveAll=False, vars=None, maxCombs=None, listCombs=None):
+def readBatchData(dataFolder, batchLabel, loadAll=False, saveAll=True, vars=None, maxCombs=None, listCombs=None):
     # load from previously saved file with all data
     if loadAll:
         print('\nLoading single file with all data...')
@@ -315,7 +315,7 @@ def getSpksPop(data, timeRange=None):
     return spktPop, numCellsPop
 
 
-def readBatchUpdatePopRates(dataFolder, batchLabel, timeRange=None, saveAll=True, loadAll=False):
+def readBatchUpdatePopRates(dataFolder, batchLabel, timeRange=None, saveAll=True, loadAll=True):
     # load from previously saved file with all data
     if loadAll:
         from netpyne import specs

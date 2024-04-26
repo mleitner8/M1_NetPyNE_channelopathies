@@ -839,10 +839,14 @@ if __name__ == '__main__':
 
     b = weightNormE(pops = ['PT5B'], locs = None,
                 allSegs = True, rule = 'PT5B_full', weights =list(np.arange(0.01, 0.2, 0.01)/100.0))
+   # b = weightNormE(pops = ['PT5B'], secs = ['soma'], locs = [0.5],
+               # allSegs = False, rule = 'PT5B_full', weights= [0.1, 0.2])
 
-    b.batchLabel = 'wscale'
+
+    b.batchLabel = 'batch'
     b.saveFolder = '../data/'+b.batchLabel
     b.method = 'grid'  # evol
     setRunCfg(b, 'mpi_bulletin', nodes = 1, coresPerNode = 8)  # cores = nodes * 8
     
     b.run() # run batch 
+
