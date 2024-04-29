@@ -245,7 +245,7 @@ def evolRates():
     params[('weightLong', 'OC')] = [0.25, 0.75]
 
     # EEgain
-    params['EEGain'] = [0.5, 1.5]
+    params[('EEGain')] = [0.5, 1.5]
 
     # IEgain
     ## L2/3+4
