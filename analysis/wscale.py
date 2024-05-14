@@ -33,7 +33,10 @@ def calculateEPSPs(params, data, somaLabel='soma', stimRange=[3000,4000], syn='e
         seg = (d['paramValues'][0], d['paramValues'][1])
         weight = d['paramValues'][1]
         print(seg, weight, epsp, len(vsoma))
-        out[tuple(seg)].append([weight, epsp])
+        if tuple(seg) in out:
+            out[tuple(seg)].append([weight,epsp])
+        else:
+            out[tuple(seg)]=[[weight, epsp]]
 
     return out
 
@@ -74,18 +77,24 @@ def calculateWeightNorm(params, data, epspNorm=0.5, somaLabel='soma', stimRange=
     weightNorm = {}
     for seg in segs: weightNorm[seg[0]] = []  # empty list for each section
     for seg in segs:
-        epspSeg = epsp[tuple(seg)]
+        epspSeg = epsp[tuple(seg)] # [weight, epsp] -> [list, list]
         epspSeg.sort()
         x, y = zip(*epspSeg)
         f = interp1d(y, x, fill_value="extrapolate")
         w = f(epspNorm)
-        while w < 0:     #When weight<0 we can remove the last point and recalculate the extrapolation
-            # Remove last element of y and x here
-            f = interp1d(yNew, xNew, fill_value="extrapolate")
+        while w < 0:
+            x_new, y_new = zip(*epspSeg[:-1])
+            f = interp1d(y_new, x_new, fill_value="extrapolate")
             w = f(epspNorm)
         wnorm = w / epspNorm
         weightNorm[seg[0]].append(wnorm)
         print('\n%s wscale = %.6f' % (str(seg), wnorm))
+        if wnorm <= 0:
+            plt.scatter(x, y)
+            plt.xlabel('Stimulation Intensity')
+            plt.ylabel('EPSP')
+            plt.show()
+
 
 
 
@@ -124,6 +133,12 @@ def calculateWeightNormPops(params, data, epspNorm=0.5, somaLabel='soma', stimRa
             print(wnorm)
             weightNorm[pop][seg[0]].append(wnorm)
             print('\n%s %s wscale = %.6f' % (pop, str(seg), wnorm))
+
+            if wnorm <=0:
+                plt.scatter(x,y)
+                plt.xlabel('Stimulation Intensity')
+                plt.ylabel('EPSP')
+                plt.show()
             '''Plot EPSPs
             #if wnorm <=0:
             #    jj = f(x)
@@ -214,12 +229,12 @@ if __name__ == '__main__':
     # analyze batch E cells    
     params, data = utils.readBatchData(dataFolder, batchLabel, loadAll=True, saveAll=False, vars=[('simData', 'V_soma')], maxCombs=None)
     #epsp = calculateEPSPs(params, data, somaLabel = 'soma', stimRange = [3000, 4000], syn = 'exc')
-    epsp = calculateEPSPsPops(params, data, somaLabel='soma', stimRange=[10*700,10*800], syn='exc')
-    plotEPSPs(epsp, dataFolder, batchLabel, addLegend=0)
+    #epsp = calculateEPSPsPops(params, data, somaLabel='soma', stimRange=[10*700,10*800], syn='exc')
+    #plotEPSPs(epsp, dataFolder, batchLabel, addLegend=0)
     #plotEPSPs(epsp, dataFolder, batchLabel, addLegend=1, includeSegs=[('apic_28',0.5), ('apic_36',0.5), ('apic_49',0.5), ('apic_56',0.5)])
-    #calculateWeightNorm(params, data, epspNorm = 0.5, somaLabel = 'soma', stimRange=[10*700,10*800], savePath=True)
+    calculateWeightNorm(params, data, epspNorm = 0.5, somaLabel = 'soma', stimRange=[10*700,10*800], savePath=True)
     #print(data); quit()
-    ts = int(1/0.025)
-    calculateWeightNormPops(params, data,  somaLabel='soma', stimRange=[ts*700,ts*800], savePath=dataFolder+'/'+batchLabel+'/')
+    #ts = int(1/0.025)
+    #calculateWeightNormPops(params, data,  somaLabel='soma', stimRange=[ts*700,ts*800], savePath=dataFolder+'/'+batchLabel+'/')
 
 
