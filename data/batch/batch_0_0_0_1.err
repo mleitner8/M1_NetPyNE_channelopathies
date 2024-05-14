@@ -1,0 +1,10 @@
+/Users/mollyleitner/miniconda3/dev/bin/nrniv:10: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  from pkg_resources import working_set
+NEURON -- VERSION 8.2.2+ release/8.2 (93d41fafd+) 2022-12-15
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2022
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ "mod/CaDynamics_E2.mod" "mod/Ca_HVA.mod" "mod/Ca_LVAst.mod" "mod/HCN1.mod" "mod/IC.mod" "mod/IKsin.mod" "mod/Ih.mod" "mod/Im.mod" "mod/K_Pst.mod" "mod/K_Tst.mod" "mod/MyExp2SynBB.mod" "mod/MyExp2SynNMDABB.mod" "mod/Nca.mod" "mod/ProbAMPANMDA_EMS.mod" "mod/ProbGABAAB_EMS.mod" "mod/SK_E2.mod" "mod/SKv3_1.mod" "mod/ar_traub.mod" "mod/branching.mod" "mod/cadad.mod" "mod/cadyn.mod" "mod/cagk.mod" "mod/cal_mh.mod" "mod/cal_mig.mod" "mod/can_mig.mod" "mod/cancr.mod" "mod/canin.mod" "mod/cat_mig.mod" "mod/cat_traub.mod" "mod/catcb.mod" "mod/ch_CavL.mod" "mod/ch_CavN.mod" "mod/ch_KCaS.mod" "mod/ch_Kdrfastngf.mod" "mod/ch_KvAngf.mod" "mod/ch_KvCaB.mod" "mod/ch_Navngf.mod" "mod/ch_leak.mod" "mod/dipole.mod" "mod/dipole_pp.mod" "mod/gabab.mod" "mod/h_BS.mod" "mod/h_harnett.mod" "mod/h_kole.mod" "mod/h_migliore.mod" "mod/hin.mod" "mod/ican_sidi.mod" "mod/iccr.mod" "mod/iconc_Ca.mod" "mod/ikscr.mod" "mod/kBK.mod" "mod/kap_BS.mod" "mod/kapcb.mod" "mod/kapin.mod" "mod/kca.mod" "mod/kctin.mod" "mod/kdmc_BS.mod" "mod/kdr_BS.mod" "mod/kdrcr.mod" "mod/kdrin.mod" "mod/km.mod" "mod/kv.mod" "mod/my_exp2syn.mod" "mod/na12.mod" "mod/na12_mut.mod" "mod/na16.mod" "mod/na16_mut.mod" "mod/nafcr.mod" "mod/nafx.mod" "mod/nap_sidi.mod" "mod/nax_BS.mod" "mod/naz.mod" "mod/savedist.mod" "mod/vclmp_pl.mod" "mod/vecstim.mod"
+0 /Users/mollyleitner/miniconda3/dev/bin/nrniv: can't open simConfig=../data/batch/batch_0_0_0_1_cfg.json
+Could not open netParams=../data/batch/batch_netParams.py

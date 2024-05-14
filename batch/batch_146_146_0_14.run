@@ -1,0 +1,59 @@
+
+Reading command line arguments using syntax: python file.py [simConfig=filepath] [netParams=filepath]
+Importing simConfig from ../data/batch/batch_146_146_0_14_cfg.json
+Loading file ../data/batch/batch_146_146_0_14_cfg.json ... 
+Loading simConfig...
+Importing netParams from ../data/batch/batch_netParams.py
+
+Start time:  2024-04-29 22:32:08.639468
+
+Creating network of 1 cell populations on 1 hosts...
+  Number of cells on node 0: 1 
+  Done; cell creation time = 0.03 s.
+Making connections...
+  Number of connections on node 0: 0 
+  Done; cell connection time = 0.00 s.
+Adding stims...
+  Number of stims on node 0: 2 
+  Done; cell stims creation time = 0.00 s.
+Recording 2 traces of 2 types on node 0
+0.0s
+
+Running simulation using NEURON for 1000.0 ms...
+0.1s
+0.2s
+0.3s
+0.4s
+0.5s
+0.6s
+0.7s
+0.8s
+0.9s
+1.0s
+  Done; run time = 4.57 s; real-time ratio: 0.22.
+
+Gathering data...
+  Done; gather time = 0.03 s.
+
+Analyzing...
+  Cells: 1
+  Connections: 0 (0.00 per cell)
+  Spikes: 0 (0.00 Hz)
+  Simulated time: 1.0 s; 1 workers
+  Run time: 4.57 s
+   PT5B : 0.000 Hz
+Saving output as ../data/batch/batch_146_146_0_14_data.json ... 
+Finished saving!
+  Done; saving time = 0.16 s.
+Plotting recorded cell traces ... trace
+  Done; plotting time = 0.13 s
+
+Total time = 4.93 s
+first instance of v_init
+first instance of ais_na12
+first instance of ais_na16
+first instance of dend_na12
+first instance of dend_na16
+first instance of soma_na12
+first instance of soma_na16
+first instance of tstop
