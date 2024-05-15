@@ -125,6 +125,10 @@ def calculateWeightNormPops(params, data, epspNorm=0.5, somaLabel='soma', stimRa
             print(x,y)
             f = interp1d(y,x,fill_value="extrapolate")
             w = f(epspNorm)
+            while w < 0:
+                x_new, y_new = zip(*epspSeg[:-1])
+                f = interp1d(y_new, x_new, fill_value="extrapolate")
+                w = f(epspNorm)
             print(w)
             wnorm = w / epspNorm
             print(wnorm)
