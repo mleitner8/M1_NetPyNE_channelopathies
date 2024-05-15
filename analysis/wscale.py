@@ -33,10 +33,7 @@ def calculateEPSPs(params, data, somaLabel='soma', stimRange=[3000,4000], syn='e
         seg = (d['paramValues'][0], d['paramValues'][1])
         weight = d['paramValues'][1]
         print(seg, weight, epsp, len(vsoma))
-        if tuple(seg) in out:
-            out[tuple(seg)].append([weight,epsp])
-        else:
-            out[tuple(seg)]=[[weight, epsp]]
+        out[tuple(seg)].append(weight,epsp)
 
     return out
 
