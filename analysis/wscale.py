@@ -235,7 +235,7 @@ if __name__ == '__main__':
     #plotEPSPs(epsp, dataFolder, batchLabel, addLegend=1, includeSegs=[('apic_28',0.5), ('apic_36',0.5), ('apic_49',0.5), ('apic_56',0.5)])
     #calculateWeightNorm(params, data, epspNorm = 0.5, somaLabel = 'soma', stimRange=[10*700,10*800], savePath=True)
     #print(data); quit()
-    #ts = int(1/0.025)
+    ts = int(1/0.025)
     calculateWeightNormPops(params, data,  somaLabel='soma', stimRange=[ts*700,ts*800], savePath=dataFolder+'/'+batchLabel+'/')
 
 
