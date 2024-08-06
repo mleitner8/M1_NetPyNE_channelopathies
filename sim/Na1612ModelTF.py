@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import sys
 from pathlib import Path
 import numpy as np
+
+#TODO look at morphological, biophysics and ion channel differences between this cell and the original one
 class Na1612Model:
     def __init__(self,na12name = 'na12_orig1', na12mechs = ['na12','na12mut'],na16name = 'na16_orig2', na16mechs = ['na16','na16mut'], params_folder = './params/',nav12=1,nav16=1,K=1,KT=1,KP=1,somaK=1,ais_ca = 1,ais_Kca = 1,soma_na16=1,soma_na12 = 1,node_na = 1,plots_folder = f'./Plots/'):
         ais_Kca = 0.1

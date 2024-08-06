@@ -837,10 +837,10 @@ if __name__ == '__main__':
     # b = v56_batch5b()
 
 
-    b = weightNormE(pops = ['PT5B'], locs = None,
-                allSegs = True, rule = 'PT5B_full', weights =list(np.arange(0.01, 0.2, 0.01)/100.0))
-   # b = weightNormE(pops = ['PT5B'], secs = ['soma'], locs = [0.5],
-               # allSegs = False, rule = 'PT5B_full', weights= [0.1, 0.2])
+    #b = weightNormE(pops = ['PT5B'], locs = None,
+                #allSegs = True, rule = 'PT5B_full', weights =list(np.arange(0.01, 0.2, 0.01)/100.0))
+    b = weightNormE(pops = ['PT5B'], secs = ['soma'], locs = [0.5],
+               allSegs = False, rule = 'PT5B_full', weights= [0.1, 0.2])
 
 
     b.batchLabel = 'batch'
